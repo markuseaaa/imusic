@@ -1,66 +1,83 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
 
-export default function Home() {
+const slides = [
+  {
+    id: 0,
+    src: "/hero/zb1-hero.png",
+    alt: "Zerobaseone – Never Say Never",
+  },
+  {
+    id: 1,
+    src: "/hero/zb1-hero.png",
+    alt: "Stray Kids – SKZ IT TAPE - DO IT",
+  },
+  {
+    id: 2,
+    src: "/hero/zb1-hero.png",
+    alt: "IVE – Ive Secret",
+  },
+  {
+    id: 3,
+    src: "/hero/zb1-hero.png",
+    alt: "K-POP merch og lightsticks",
+  },
+];
+
+export default function HomePage() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Auto-slide
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % slides.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      <section className={styles.hero}>
+        <div className={styles.heroWrapper}>
+          {/* Track der glider side-til-side */}
+          <div
+            className={styles.heroTrack}
+            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
           >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            {slides.map((slide) => (
+              <div key={slide.id} className={styles.heroSlide}>
+                <Image
+                  src={slide.src}
+                  alt={slide.alt}
+                  fill
+                  priority={slide.id === 0}
+                  className={styles.heroImage}
+                  sizes="100vw"
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* DOTS */}
+          <div className={styles.dots}>
+            {slides.map((slide, index) => (
+              <button
+                key={slide.id}
+                onClick={() => setCurrentIndex(index)}
+                className={`${styles.dot} ${
+                  index === currentIndex ? styles.dotActive : ""
+                }`}
+                aria-label={`Gå til slide ${index + 1}`}
+                type="button"
+              />
+            ))}
+          </div>
         </div>
-      </main>
+      </section>
     </div>
   );
 }
