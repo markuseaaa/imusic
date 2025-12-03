@@ -1,59 +1,160 @@
-"use client";
-
 import Image from "next/image";
-import Link from "next/link";
 import styles from "./ProductCard.module.css";
+import Link from "next/link";
 
-export default function ProductCard({ product }) {
-  if (!product) return null;
+const BADGE_STYLES = {
+  ALBUM: { label: "ALBUM", className: styles.badgeAlbum },
+  POB: { label: "POB", className: styles.badgePob },
+  MERCHANDISE: { label: "MERCHANDISE", className: styles.badgeMerch },
+  CLOTHES: { label: "CLOTHES", className: styles.badgeClothes },
+  LIGHTSTICK: { label: "LIGHTSTICK", className: styles.badgeLightstick },
+  DIGIPACK: { label: "DIGIPACK", className: styles.badgeDigipack },
+  DIGITAL_EDITION: {
+    label: "DIGITAL EDITION",
+    className: styles.badgeDigitalEdition,
+  },
+  "PRE-ORDER": {
+    label: "PRE-ORDER",
+    className: styles.badgePreorder,
+  },
+};
 
-  const {
-    id,
-    title,
-    artistName,
-    price,
-    currency,
-    images,
-    badges = {},
-  } = product;
+export default function ProductCard({
+  image,
+  badges = {},
+  title,
+  artist, // fx "Zerobaseone"
+  artistSlug, // fx "zerobaseone" (NY PROP)
+  versions = [], // array af { name, code, ... }
+  isRandomVersion = false,
+  price,
+  salePrice,
+  onSale = false,
+  currency = "DKK",
+}) {
+  // PRE-ORDER badge overlay på billedet
+  const isPreorder = !!badges["PRE-ORDER"];
 
-  const displayPrice =
-    typeof price === "number" ? price.toFixed(2).replace(".", ",") : price;
+  // Filtrér badges til rækken under billedet (ikke RANDOM_VER, ikke PRE-ORDER)
+  const activeBadges = Object.entries(badges).filter(
+    ([key, value]) => value && key !== "RANDOM_VER" && key !== "PRE-ORDER"
+  );
 
-  const activeBadges = Object.entries(badges)
-    .filter(([, value]) => value)
-    .map(([key]) => key);
+  // Hvis det IKKE er random, vis navngivne versioner som piller
+  const namedVersions =
+    !isRandomVersion && Array.isArray(versions)
+      ? versions.filter((v) => v && v.name)
+      : [];
 
   return (
-    <Link href={`/product/${id || "#"}`} className={styles.card}>
+    <article className={styles.card}>
+      {/* Billede + PRE-ORDER overlay */}
       <div className={styles.imageWrapper}>
-        {images?.cover ? (
+        {image && (
           <Image
-            src={images.cover}
+            src={image}
             alt={title}
-            fill
+            width={300}
+            height={300}
             className={styles.image}
-            sizes="(max-width: 768px) 50vw, 220px"
           />
-        ) : (
-          <div className={styles.imagePlaceholder}>No image</div>
+        )}
+
+        {isPreorder && (
+          <span className={`${styles.badge} ${styles.preorderOverlayBadge}`}>
+            PRE-ORDER
+          </span>
         )}
       </div>
 
-      <div className={styles.badgesRow}>
-        {activeBadges.map((badge) => (
-          <span key={badge} className={styles.badge}>
-            {badge.replace("_", " ")}
-          </span>
-        ))}
-      </div>
+      {/* Badges (ALBUM, MERCH, DIGIPACK, DIGITAL, osv.) */}
+      {activeBadges.length > 0 && (
+        <div className={styles.badges}>
+          {activeBadges.map(([key]) => {
+            const style = BADGE_STYLES[key] || {
+              label: key,
+              className: styles.badgeDefault,
+            };
+            return (
+              <span key={key} className={`${styles.badge} ${style.className}`}>
+                {style.label}
+              </span>
+            );
+          })}
+        </div>
+      )}
 
+      {/* Titel */}
       <h3 className={styles.title}>{title}</h3>
-      {artistName && <p className={styles.artist}>{artistName}</p>}
 
-      <p className={styles.price}>
-        {displayPrice} {currency || "DKK"}
-      </p>
-    </Link>
+      {/* Artist – kun navnet er klikbart */}
+      {artist && artistSlug ? (
+        <Link href={`/artister/${artistSlug}`} className={styles.artistLink}>
+          <p className={styles.artist}>{artist}</p>
+        </Link>
+      ) : artist ? (
+        <p className={styles.artist}>{artist}</p>
+      ) : null}
+
+      {/* Version-indikator */}
+      {isRandomVersion ? (
+        <span className={styles.versionBadge}>RANDOM VER.</span>
+      ) : (
+        namedVersions.length > 0 &&
+        (() => {
+          const MAX_VERSION_BADGES = 3;
+          const visibleVersions = namedVersions.slice(0, MAX_VERSION_BADGES);
+          const hiddenCount = namedVersions.length - visibleVersions.length;
+
+          return (
+            <div className={styles.versionPills}>
+              {visibleVersions.map((v, index) => (
+                <span
+                  key={v.code || v.name || index}
+                  className={styles.versionBadge}
+                >
+                  {v.name}
+                </span>
+              ))}
+
+              {hiddenCount > 0 && (
+                <span className={styles.versionBadgeMore}>+{hiddenCount}</span>
+              )}
+            </div>
+          );
+        })()
+      )}
+
+      {/* Pris */}
+      <div className={styles.priceWrapper}>
+        {onSale && typeof salePrice === "number" ? (
+          <>
+            <span className={styles.oldPrice}>
+              {price?.toLocaleString("da-DK", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}{" "}
+              {currency}
+            </span>
+
+            <span className={styles.salePrice}>
+              {salePrice?.toLocaleString("da-DK", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}{" "}
+              {currency}
+            </span>
+          </>
+        ) : (
+          <span className={styles.price}>
+            {price?.toLocaleString("da-DK", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}{" "}
+            {currency}
+          </span>
+        )}
+      </div>
+    </article>
   );
 }

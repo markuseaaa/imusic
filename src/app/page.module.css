@@ -14,7 +14,7 @@
 .heroWrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 1440 / 530; /* matcher dine 1440x530 bannere */
+  aspect-ratio: 1440 / 510;
   overflow: hidden;
 }
 
@@ -64,4 +64,136 @@
   width: 22px;
   background: linear-gradient(90deg, #fca738, #ff74df);
   opacity: 1;
+}
+
+/* Ydre sektion – fuld bredde, centrer indholdet */
+.groupsOuter {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Rækken – samme max-width + padding som resten af siden */
+.groupsRow {
+  width: 100%;
+  max-width: 1400px; /* sæt til samme som dit layout/nav bruger */
+  padding: 20px 24px; /* samme side-margin som navbar/indhold */
+  margin-top: 10px;
+
+  display: flex;
+  justify-content: space-between; /* SPRED kortene ud */
+  gap: 24px;
+}
+
+/* Kortene som før */
+.groupCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.groupImageWrapper {
+  width: 200px;
+  height: 200px;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.groupImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.groupName {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* POPULÆRT LIGE NU */
+
+.productsOuter {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: -20px;
+}
+
+.productsInner {
+  width: 100%;
+  max-width: 1400px; /* match din navbar-layout bredde */
+  padding: 0 24px 40px;
+}
+
+.productsHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.sectionTitle {
+  font-size: 35px;
+  font-weight: 800;
+}
+
+.sectionArrow {
+  font-size: 40px;
+  transform: translateY(2px);
+}
+
+/* Selve carousel-rækken */
+
+.productsRow {
+  display: flex;
+  gap: 70px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 12px;
+  align-items: center;
+}
+
+.productsRow::-webkit-scrollbar {
+  display: none;
+}
+
+/* "Se alle"-kortet til sidst */
+
+.seeAllCard {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 18px;
+  border: 0 transparent solid;
+  background: linear-gradient(90deg, #fca738, #ff74df);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.seeAllText {
+  font-size: 20px;
+  color: white;
+}
+
+.titleWrapper {
+  position: relative;
+  display: inline-block; /* match bredden af teksten */
+}
+
+.titleWrapper::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #fca738, #ff74df);
+  bottom: 15px;
 }

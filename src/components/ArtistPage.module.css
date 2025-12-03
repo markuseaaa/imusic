@@ -1,0 +1,242 @@
+/* ------------------------------
+   PAGE WRAPPER – fuld bredde
+--------------------------------- */
+.page {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Indholdet – centreret, max 1400px, samme side-padding som forsiden */
+.categoryContent {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 24px 64px; /* top / sider / bund */
+}
+
+/* ------------------------------
+   HEADER + TITLE UNDERLINE
+--------------------------------- */
+.header {
+  margin-bottom: 24px;
+}
+
+.titleWrapper {
+  position: relative;
+  display: inline-block; /* så linjen følger tekstbredden */
+}
+
+.sectionTitle {
+  font-size: 35px;
+  font-weight: 800;
+}
+
+.titleWrapper::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #fca738, #ff74df);
+  bottom: 15px; /* samme som forsiden */
+}
+
+/* ------------------------------
+   STATUS TEKST
+--------------------------------- */
+.statusText {
+  margin-top: 24px;
+  font-size: 16px;
+  opacity: 0.8;
+}
+
+/* ------------------------------
+   FILTER-SECTION
+--------------------------------- */
+.filterSection {
+  margin-top: -15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Search wrapper for icon inside input */
+.searchWrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Input med plads til ikon */
+.searchInput {
+  width: 100%;
+  padding: 15px 14px;
+  padding-right: 42px; /* gør plads til ikon */
+  border-radius: 10px;
+  border: 1px solid black;
+  background: transparent;
+  color: black;
+  font-size: 14px;
+}
+
+/* Ikonet placeret i højre side */
+.searchIcon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* så klik går til input */
+  filter: brightness(0); /* Gør ikonet helt sort */
+}
+
+.searchInput::placeholder {
+  color: rgba(138, 138, 138, 0.5);
+}
+
+.filtersRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* BASIS-PILL (TYPE / ARTIST / FILTRER) */
+.filterSelect {
+  display: inline-block;
+  flex: 0 0 auto; /* må IKKE fylde hele rækken */
+  width: auto; /* følger tekstens bredde */
+
+  padding: 10px 18px;
+  padding-right: 36px; /* plads til pilen */
+
+  border-radius: 12px;
+  border: 1px solid #111;
+  background-color: transparent;
+  color: #111;
+
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  cursor: pointer;
+
+  /* fjern native styling */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  /* sort pil som default */
+  background-image: url("data:image/svg+xml;utf8,<svg fill='none' stroke='%23111' stroke-width='2' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path d='M6 9l6 6 6-6'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 14px 14px;
+}
+
+.filterSelect:hover {
+  background-color: #f7f7f7;
+}
+
+.filterSelectActive {
+  color: #fff;
+  border-color: transparent;
+
+  background-image: linear-gradient(90deg, #ff86b4, #e99aff);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: 100% 100%;
+}
+
+.filterGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.clearBtn {
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: transparent;
+  color: #111;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.filterSelectActive + .clearBtn {
+  color: black;
+}
+
+.clearBtn:hover {
+  opacity: 0.85;
+}
+
+/* ------------------------------
+   PRODUKT GRID
+--------------------------------- */
+/* Lille skærm: 1 pr. række */
+.grid {
+  display: grid;
+  gap: 6rem;
+  margin-top: 32px;
+  grid-template-columns: 1fr;
+}
+
+/* Mellem skærm: 2 pr. række */
+@media (min-width: 600px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Desktop: 4 kolonner */
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Wrapper rundt om ProductCard – vi rører ikke selve kortets CSS */
+.cardWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start; /* kortet står til venstre i cellen */
+}
+
+/* ------------------------------
+   "VIS FLERE" KNAP
+--------------------------------- */
+.loadMoreWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+.loadMoreBtn {
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(90deg, #ff86b4, #e99aff);
+  color: #111;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.loadMoreBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  opacity: 0.95;
+}
+
+.loadMoreBtn:active {
+  transform: translateY(0);
+  box-shadow: none;
+  opacity: 0.9;
+}

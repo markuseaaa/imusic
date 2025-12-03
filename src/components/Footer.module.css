@@ -1,0 +1,145 @@
+.footer {
+  width: 100%;
+  margin-top: 30px;
+  padding: 20px 24px 40px;
+  color: #ffffff;
+  background: linear-gradient(90deg, #ff9f4a 0%, #ff3cac 100%);
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Kolonner */
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 kolonner */
+  gap: 40px;
+  margin-bottom: 0px;
+  align-items: flex-start;
+  justify-items: flex-start; /* tekst venstrejusteret */
+  margin-left: 150px;
+}
+
+.column h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.column p {
+  margin: 20px 0;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+/* Social icons – 2 rækker */
+
+.socialWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.socialRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.socialItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.iconLink {
+  text-decoration: none;
+}
+
+/* Cirkler */
+
+.iconCircle {
+  width: 50px;
+  height: 50px;
+  border-radius: 999px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.iconCircle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.25);
+}
+
+/* Ikonfarve – brug en stærk pink fra gradienten */
+.iconCircle svg {
+  color: #ff4fa4;
+}
+
+.kpopLabel {
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Copyright */
+
+.copyright {
+  margin-top: 8px;
+  text-align: center;
+  font-size: 13px;
+}
+
+/* Back to top button */
+
+.backToTop {
+  margin: 20px auto 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  border: none;
+  background: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Pilfarve (matcher ikonerne) */
+.backToTop svg {
+  color: #ff4fa4;
+}
+
+.backToTop:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.25);
+}
+
+/* Responsiv */
+
+@media (max-width: 900px) {
+  .columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .columns {
+    grid-template-columns: 1fr;
+  }
+}
