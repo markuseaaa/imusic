@@ -5,7 +5,7 @@ import CartProviderClient from "../components/CartProviderClient";
 
 export const metadata = {
   title: "iMusic K-POP",
-  description: "iMusic K-POP",
+  description: "Find og køb dit yndlings K-POP merchandise her!",
   icons: {
     icon: "icons/favicon.png",
     apple: "icons/favicon.png",
