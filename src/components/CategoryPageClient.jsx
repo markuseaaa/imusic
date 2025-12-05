@@ -248,6 +248,7 @@ export default function CategoryPageClient({ slug }) {
               {visibleItems.map((p) => (
                 <div key={p.id} className={styles.cardWrapper}>
                   <ProductCard
+                    id={p.id}
                     image={p.image}
                     badges={p.badges}
                     title={p.title}

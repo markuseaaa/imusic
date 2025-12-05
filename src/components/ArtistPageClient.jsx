@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ref, get } from "firebase/database";
-import { db } from "@/../firebaseClient";
+import { ref, get, set, remove } from "firebase/database";
+import { db, auth } from "@/../firebaseClient";
 import ProductCard from "@/components/ProductCard";
 import styles from "./ArtistPage.module.css";
 import Image from "next/image";
+import { onAuthStateChanged } from "firebase/auth";
+import { FaStar } from "react-icons/fa6";
 
 export default function ArtistPageClient({ slug }) {
   const [artistGroup, setArtistGroup] = useState(null);
@@ -19,6 +21,16 @@ export default function ArtistPageClient({ slug }) {
   const [typeFilter, setTypeFilter] = useState("");
   const [memberFilter, setMemberFilter] = useState("");
   const [generalFilter, setGeneralFilter] = useState("");
+
+  const [currentUser, setCurrentUser] = useState(null);
+  const [isArtistFav, setIsArtistFav] = useState(false);
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (u) => {
+      setCurrentUser(u || null);
+    });
+    return () => unsub();
+  }, []);
 
   useEffect(() => {
     if (!slug) return;
@@ -111,6 +123,33 @@ export default function ArtistPageClient({ slug }) {
     };
   }, [slug]);
 
+  useEffect(() => {
+    if (!currentUser || !artistGroup?.id) return;
+
+    let cancelled = false;
+
+    async function checkArtistFavorite() {
+      try {
+        const favRef = ref(
+          db,
+          `users/${currentUser.uid}/favoriteArtists/${artistGroup.id}`
+        );
+        const snap = await get(favRef);
+        if (!cancelled) {
+          setIsArtistFav(snap.exists());
+        }
+      } catch (err) {
+        console.error("Kunne ikke tjekke favorit artist (artist side):", err);
+      }
+    }
+
+    checkArtistFavorite();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [currentUser, artistGroup?.id]);
+
   const filteredAndSorted = useMemo(() => {
     let list = [...products];
 
@@ -180,6 +219,32 @@ export default function ArtistPageClient({ slug }) {
     setVisibleCount((prev) => prev + 16);
   };
 
+  const handleToggleArtistFav = async () => {
+    if (!artistGroup?.id) return;
+
+    if (!currentUser) {
+      router.push("/konto");
+      return;
+    }
+
+    const favRef = ref(
+      db,
+      `users/${currentUser.uid}/favoriteArtists/${artistGroup.id}`
+    );
+
+    try {
+      if (isArtistFav) {
+        await remove(favRef);
+        setIsArtistFav(false);
+      } else {
+        await set(favRef, true);
+        setIsArtistFav(true);
+      }
+    } catch (err) {
+      console.error("Kunne ikke opdatere favorit artist (artist side):", err);
+    }
+  };
+
   if (!slug) {
     return (
       <main className={styles.page}>
@@ -231,6 +296,27 @@ export default function ArtistPageClient({ slug }) {
           <div className={styles.titleWrapper}>
             <h1 className={styles.sectionTitle}>{titleText}</h1>
           </div>
+
+          {artistGroup && (
+            <button
+              type="button"
+              className={styles.artistFavButton}
+              onClick={handleToggleArtistFav}
+              aria-label={
+                isArtistFav
+                  ? "Fjern favorit artist"
+                  : "Tilføj som favorit artist"
+              }
+            >
+              <FaStar
+                className={
+                  isArtistFav
+                    ? `${styles.artistStarIcon} ${styles.artistStarIconFilled}`
+                    : styles.artistStarIcon
+                }
+              />
+            </button>
+          )}
         </header>
 
         {isLoading ? (
@@ -359,6 +445,7 @@ export default function ArtistPageClient({ slug }) {
               {visibleItems.map((p) => (
                 <div key={p.id} className={styles.cardWrapper}>
                   <ProductCard
+                    id={p.id}
                     image={p.image}
                     badges={p.badges}
                     title={p.title}

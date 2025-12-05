@@ -108,6 +108,7 @@ function Category({ title, items }) {
           {items.map((p) => (
             <ProductCard
               key={p.id}
+              id={p.id}
               image={p.image}
               badges={p.badges}
               title={p.title}
@@ -333,20 +334,28 @@ export default function HomePage() {
       {/* K-POP GRUPPER */}
       <section className={styles.groupsOuter}>
         <div className={styles.groupsRow}>
-          {FEATURED_GROUPS.map((name) => (
-            <div key={name} className={styles.groupCard}>
-              <div className={styles.groupImageWrapper}>
-                <Image
-                  src={`/images/${name.toLowerCase().replace(" ", "")}.png`}
-                  alt={name}
-                  width={200}
-                  height={200}
-                  className={styles.groupImage}
-                />
-              </div>
-              <p className={styles.groupName}>{name}</p>
-            </div>
-          ))}
+          {FEATURED_GROUPS.map((name) => {
+            const slug = slugifyArtist(name);
+
+            return (
+              <Link
+                key={name}
+                href={`/artister/${slug}`}
+                className={styles.groupCard}
+              >
+                <div className={styles.groupImageWrapper}>
+                  <Image
+                    src={`/images/${name.toLowerCase().replace(" ", "")}.png`}
+                    alt={name}
+                    width={200}
+                    height={200}
+                    className={styles.groupImage}
+                  />
+                </div>
+                <p className={styles.groupName}>{name}</p>
+              </Link>
+            );
+          })}
         </div>
       </section>
 

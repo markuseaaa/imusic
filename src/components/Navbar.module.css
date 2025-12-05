@@ -1,12 +1,12 @@
 .header {
   width: 100%;
-  height: 64px;
   background: linear-gradient(90deg, #fca738, #ff74df);
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 
 .inner {
+  height: 64px;
   max-width: 1400px;
   width: 100%;
   margin: 0 auto;
@@ -65,4 +65,195 @@
   border: none;
   cursor: pointer;
   padding: 4px;
+}
+
+/* ------------------------------
+   SEARCH BAR UNDER NAVBAR
+--------------------------------- */
+.searchBar {
+  width: 100%;
+  background: transparent;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 10px 0;
+}
+
+/* Matcher dit layout (fx max 1400px og 24px side-padding) */
+.searchInner {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Wrapper med ikon inde i input */
+.searchWrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Input med plads til ikon */
+.searchInput {
+  width: 100%;
+  padding: 15px 14px;
+  padding-right: 42px; /* plads til ikon */
+  border-radius: 10px;
+  border: 1px solid black;
+  background: white;
+  color: black;
+  font-size: 14px;
+}
+
+.searchInput::placeholder {
+  color: rgba(138, 138, 138, 0.5);
+}
+
+/* Ikon i højre side inde i feltet */
+.searchIcon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: auto;
+  cursor: pointer;
+  filter: brightness(0);
+}
+
+.basketWrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.basketBadge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: rgb(247, 119, 93);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cartOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: flex-end;
+  align-items: stretch;
+  z-index: 50;
+}
+
+.cartModal {
+  width: 360px;
+  max-width: 100%;
+  background: #ffffff;
+  padding: 20px 20px 16px;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+}
+
+.cartTitle {
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.cartEmpty {
+  font-size: 15px;
+  color: #666;
+}
+
+.cartList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cartItem {
+  display: flex;
+  gap: 12px;
+}
+
+.cartItemImage {
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.cartItemText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cartItemTitle {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 -10px;
+}
+
+.cartItemMeta {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+}
+
+.cartItemVersion {
+  font-size: 13px;
+  margin-bottom: 0px;
+}
+
+.cartFooter {
+  border-top: 1px solid #eee;
+  padding-top: 12px;
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cartTotal {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 14px;
+}
+
+.cartBuyButton {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  background: linear-gradient(90deg, #fca738, #ff74df);
+  color: #fff;
+  font-size: 15px;
+}
+
+.removeItemButton {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  color: #555;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.2s ease;
+}
+
+.removeItemButton:hover {
+  color: #ff74df; /* din signature gradient farve */
 }

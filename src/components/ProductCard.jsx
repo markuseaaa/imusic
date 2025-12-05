@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from "./ProductCard.module.css";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const BADGE_STYLES = {
   ALBUM: { label: "ALBUM", className: styles.badgeAlbum },
@@ -20,18 +21,21 @@ const BADGE_STYLES = {
 };
 
 export default function ProductCard({
+  id, // 🔹 NYT: produktets id fra Firebase
   image,
   badges = {},
   title,
   artist, // fx "Zerobaseone"
-  artistSlug, // fx "zerobaseone" (NY PROP)
-  versions = [], // array af { name, code, ... }
+  artistSlug, // fx "zerobaseone"
+  versions = [],
   isRandomVersion = false,
   price,
   salePrice,
   onSale = false,
   currency = "DKK",
 }) {
+  const router = useRouter();
+
   // PRE-ORDER badge overlay på billedet
   const isPreorder = !!badges["PRE-ORDER"];
 
@@ -46,8 +50,26 @@ export default function ProductCard({
       ? versions.filter((v) => v && v.name)
       : [];
 
+  const handleCardClick = () => {
+    if (!id) return;
+    router.push(`/produkt/${id}`);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleCardClick();
+    }
+  };
+
   return (
-    <article className={styles.card}>
+    <article
+      className={styles.card}
+      onClick={handleCardClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+    >
       {/* Billede + PRE-ORDER overlay */}
       <div className={styles.imageWrapper}>
         {image && (
@@ -87,9 +109,13 @@ export default function ProductCard({
       {/* Titel */}
       <h3 className={styles.title}>{title}</h3>
 
-      {/* Artist – kun navnet er klikbart */}
+      {/* Artist – navnet er klikbart, men må IKKE trigge produkt-navigation */}
       {artist && artistSlug ? (
-        <Link href={`/artister/${artistSlug}`} className={styles.artistLink}>
+        <Link
+          href={`/artister/${artistSlug}`}
+          className={styles.artistLink}
+          onClick={(e) => e.stopPropagation()} // ← vigtigt
+        >
           <p className={styles.artist}>{artist}</p>
         </Link>
       ) : artist ? (

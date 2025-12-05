@@ -1,0 +1,417 @@
+.page {
+  width: 100%;
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+}
+
+.inner {
+  width: 100%;
+  max-width: 1400px;
+  padding: 40px 24px 80px;
+  display: flex;
+  gap: 60px;
+}
+
+.sidebar {
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: flex-start;
+  align-self: flex-start;
+  position: sticky;
+  top: 100px;
+}
+
+.greeting {
+  font-size: 40px;
+  font-weight: 800;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.menuItem {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 25px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.menuItemActive {
+  background: linear-gradient(90deg, #fca738, #ff74df);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bottomActions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 40px;
+}
+
+.menuItemDanger {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 25px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  color: #c91818;
+}
+
+.content {
+  flex: 1;
+}
+
+/* ORDERS */
+
+.ordersWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.orderCard {
+  border-radius: 18px;
+  border: 1px solid #222;
+  padding: 16px 20px 18px;
+}
+
+.orderHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.orderDivider {
+  margin: 10px 0 14px;
+  height: 1px;
+  background: #222;
+}
+
+.orderBody {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.orderItems {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.orderItemRow {
+  display: flex;
+  gap: 16px;
+}
+
+.orderItemImageWrapper {
+  width: 150px;
+  height: 150px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #f3f3f3;
+}
+
+.orderItemImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.orderItemInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0px; /* vi styrer spacing med margins på de enkelte linjer */
+  font-size: 15px;
+  margin-top: -15px;
+}
+
+.orderItemTitle {
+  font-weight: 800;
+  font-size: 20px;
+  margin-bottom: 0px;
+}
+
+.orderItemArtist {
+  font-size: 15px;
+  margin-bottom: -4px; /* LUFT NED TIL VERSION */
+}
+
+.orderItemVersion {
+  font-size: 15px;
+  margin-bottom: -4px; /* lille luft ned til 'Antal' */
+}
+
+.orderItemQuantity {
+  font-size: 15px;
+  margin-bottom: -4px;
+}
+
+.orderItemMeta {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.orderShippingText {
+  margin-top: 8px;
+  font-size: 15px;
+}
+
+/* ------------------------------
+   WISHLIST GRID
+--------------------------------- */
+
+.wishlistGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+}
+
+@media (max-width: 1024px) {
+  .wishlistGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .wishlistGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.wishlistCardWrapper {
+  position: relative;
+}
+
+/* Hjertet ovenpå billedet */
+.wishlistHeartButton {
+  position: absolute;
+  top: 10px;
+  right: 85px;
+
+  background: none; /* ingen baggrund */
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+}
+
+.wishlistHeartIcon {
+  font-size: 40px;
+  color: #ff86b4; /* din pink gradient farve */
+  position: relative;
+}
+
+/* Minus ikon ovenpå hjertet */
+.wishlistHeartMinus {
+  position: absolute;
+  top: 6px; /* justér hvis nødvendigt */
+  right: 13px;
+  font-size: 20px;
+  font-weight: 900;
+  color: white;
+  pointer-events: none; /* klik går stadig til selve knappen */
+}
+
+.wishlistHeartButton:hover .wishlistHeartIcon {
+  transform: scale(1.08);
+}
+
+.wishlistTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.wishlistTitle {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.shareWishlistButton {
+  border-radius: 8px;
+  border: 1px solid #222;
+  background: transparent;
+  padding: 8px 16px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border 0.2s ease;
+}
+
+.shareWishlistButton:hover {
+  background: linear-gradient(90deg, #fca738, #ff74df);
+  border: transparent;
+  color: white;
+}
+
+/* FAVORITE ARTISTS */
+
+.artistsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px 40px;
+  width: 90%;
+}
+
+.artistCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.artistImageWrapper {
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 32px;
+  overflow: hidden;
+}
+
+.artistImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.artistRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.artistName {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.artistStar {
+  font-size: 22px;
+}
+
+.artistCard {
+  position: relative;
+}
+
+/* knap med stjerne */
+.artistFavButton {
+  position: relative;
+  margin-left: 8px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* selve stjernen */
+.artistStarIcon {
+  font-size: 25px;
+  color: #ffd94a; /* gul stjerne */
+  position: relative;
+}
+
+/* minus ovenpå stjernen */
+.artistStarMinus {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  font-size: 12px;
+  font-weight: 900;
+  color: #ffffff;
+  pointer-events: none; /* klik går til knappen, ikke span */
+}
+
+.artistFavButton:hover .artistStarIcon {
+  transform: scale(1.06);
+}
+
+/* PROFILE FORM WRAPPER – placeret mod højre */
+.profileForm {
+  max-width: 600px;
+  margin-left: auto; /* <-- gør den højre-justeret */
+  width: 100%;
+}
+
+/* GRID */
+.profileGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+/* LABELS */
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* INPUTS */
+.input {
+  height: 56px;
+  border-radius: 12px;
+  border: 1px solid #222;
+  padding: 0 16px;
+  font-size: 15px;
+
+  background: transparent; /* <-- GØR BAGGRUND GENNEMSIGTIG */
+}
+
+.input:disabled {
+  background: rgba(0, 0, 0, 0.04); /* lille subtil disabled-baggrund */
+}
+
+/* BESKED */
+.profileMessage {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #0f9d58;
+}
+
+/* SAVE BUTTON */
+.saveButton {
+  margin-top: 18px;
+  height: 56px;
+  border-radius: 14px;
+  border: none;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+
+  background: linear-gradient(90deg, #fca738, #ff74df);
+  color: white;
+
+  width: 100%; /* <-- SAMME BREDDE SOM INPUTS */
+  display: block; /* sikrer at width:100% virker */
+}
+
+/* Loading */
+
+.loading {
+  margin-top: 120px;
+  text-align: center;
+  font-size: 18px;
+}

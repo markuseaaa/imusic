@@ -1,0 +1,611 @@
+.page {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+/* Centreret indhold – matcher forsiden/kategori */
+.detailContent {
+  width: 100%;
+  max-width: 1400px;
+  padding: 32px 24px 64px;
+  margin: 0 auto;
+  margin-top: 40px;
+
+  display: flex;
+  gap: 60px;
+}
+
+.left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* -----------------------------------
+   HOVEDBILLEDE
+----------------------------------- */
+
+.imageMainWrapper {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  max-width: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.mainImage {
+  object-fit: cover;
+}
+
+/* Navigationspile m. gradient */
+.navArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 32px;
+  font-weight: 800;
+  background: linear-gradient(90deg, #fca738, #ff74df);
+  color: #ffffff;
+  border: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  cursor: pointer;
+
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+  z-index: 5;
+}
+
+.navArrowLeft {
+  left: 14px;
+}
+
+.navArrowRight {
+  right: 14px;
+}
+
+.arrowIcon {
+  font-size: 22px; /* perfekt størrelse til dine 52px knapper */
+  color: #fff;
+}
+
+/* -----------------------------------
+   BADGES – samlet i venstre hjørne
+----------------------------------- */
+
+.badgeRow {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  z-index: 6;
+}
+
+.badge {
+  position: relative;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 8px;
+  text-transform: uppercase;
+
+  background: #d1d5db;
+  color: #1b1b1b;
+}
+
+/* Specific badge types – matcher ProductCard */
+
+.badgeAlbum {
+  background: #fca738;
+  color: #ffffff;
+}
+
+.badgeMerch {
+  background: #dd2c2c;
+  color: #ffffff;
+}
+
+.badgeClothes {
+  background: #21ae50;
+  color: #ffffff;
+}
+
+.badgeLightstick {
+  background: #ddc000;
+  color: #ffffff;
+}
+
+.badgeDigipack {
+  background: #3029fa;
+  color: #ffffff;
+}
+
+.badgeDigitalEdition {
+  background: #00bbf9;
+  color: #ffffff;
+}
+
+.badgePob {
+  background: #da1fff;
+  color: #ffffff;
+}
+
+.badgePreorder {
+  background: linear-gradient(90deg, #fca738, #ff74df);
+  color: #ffffff;
+}
+
+/* -----------------------------------
+   THUMBNAILS
+----------------------------------- */
+
+.thumbsRow {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 5px;
+}
+
+.thumbsRow::-webkit-scrollbar {
+  display: none;
+}
+
+.thumbButton {
+  border: none;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+
+  border-radius: 16px;
+  overflow: hidden;
+  opacity: 0.6;
+  transition: opacity 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+
+  width: 90px;
+  height: 90px;
+  flex: 0 0 auto;
+}
+
+.thumbActive {
+  opacity: 1;
+}
+
+.thumbImage {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+}
+
+/* -----------------------------------
+   TITLER OG ARTIST
+----------------------------------- */
+
+.titleRow {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.titleWithHeart {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.productTitle {
+  font-size: 45px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.artistRow {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.artistName {
+  font-size: 30px;
+  font-weight: 400;
+}
+
+.artistLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.artistLink:hover {
+  text-decoration: underline;
+}
+
+/* Stjerne-knap */
+.artistFavButton {
+  position: relative;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.starIcon {
+  font-size: 25px;
+  color: #d0d0d0; /* inaktiv */
+  transition: transform 0.15s ease;
+}
+
+.starIconFilled {
+  color: #ffd94a; /* gul favorit-stjerne */
+}
+
+/* Hjerte-knap */
+.heartButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.heartIcon {
+  font-size: 32px;
+  color: #777;
+}
+
+.heartIconFilled {
+  font-size: 32px;
+  color: #ff74df;
+}
+
+/* -----------------------------------
+   VERSIONER + POB
+----------------------------------- */
+
+.versionRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.versionBadge {
+  font-size: 15px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: 1px solid black;
+  text-transform: uppercase;
+  background: transparent;
+}
+
+.versionRow button.versionBadge {
+  cursor: pointer;
+  border: 1px solid #000000;
+  background: transparent;
+}
+
+.versionRow button.versionBadge.versionBadgeActive {
+  background: linear-gradient(90deg, #ff86b4, #e99aff);
+  color: #fff;
+  border-color: transparent;
+}
+
+.pobBadge {
+  background: #da1fff;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* -----------------------------------
+   META-TEKST
+----------------------------------- */
+
+.metaText {
+  font-size: 15px;
+  line-height: 2;
+  color: #555;
+  margin-top: 85px;
+  margin-bottom: 0px;
+}
+
+/* -----------------------------------
+   PRIS
+----------------------------------- */
+
+.priceRow {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.price {
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.oldPrice {
+  font-size: 30px;
+  text-decoration: line-through;
+  color: #777;
+}
+
+.salePrice {
+  font-size: 30px;
+  font-weight: 800;
+  color: #d61f1f;
+}
+
+/* -----------------------------------
+   KURV
+----------------------------------- */
+
+.cartRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.quantitySelector {
+  display: flex;
+  align-items: center;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.qtyButton {
+  background: transparent;
+  border: none;
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.qtyValue {
+  padding: 0 16px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.addToCartButton {
+  padding: 12px 0px;
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  background: linear-gradient(90deg, #fca738, #ff74df);
+  color: white;
+  width: 75%;
+}
+
+/* -----------------------------------
+   DETALJER (Accordion)
+----------------------------------- */
+
+.detailsSection {
+  margin-top: 12px;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+}
+
+.detailsHeader {
+  background: none;
+  border: none;
+  width: 100%;
+  padding: 6px 0;
+  display: flex;
+  align-items: center; /* NYT — så ikon og tekst står pænt */
+  gap: 10px; /* NYT — luft mellem ikon og tekst */
+  cursor: pointer;
+
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.detailsIcon {
+  font-size: 18px;
+  transition: transform 0.25s ease;
+}
+
+.detailsIconOpen {
+  transform: rotate(180deg); /* drejer nedad-pil til opad */
+}
+
+.detailsContent {
+  margin-top: 10px;
+  padding-left: 3px;
+}
+
+.detailsText {
+  font-size: 20px;
+  line-height: 1.45;
+  white-space: pre-line;
+}
+
+.releaseDate {
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: #444;
+}
+
+/* Version-tabs under Detaljer */
+
+.versionDetails {
+  margin-top: 16px;
+}
+
+.detailsSubTitle {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.versionTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 8px;
+}
+
+.versionTab {
+  border-radius: 8px;
+  border: 1px solid #000000;
+  background: #f9fafb;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 6px 8px;
+  cursor: pointer;
+}
+
+.versionTabActive {
+  background: linear-gradient(90deg, #fca738, #ff74df);
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.versionTabContent {
+  font-size: 15px;
+  line-height: 1.45;
+  white-space: pre-line; /* nyt – bevarer \n som linjeskift */
+}
+
+/* -----------------------------------
+   PRODUKTSEKTIONER (Findes også som / Andre kiggede på)
+----------------------------------- */
+
+.productsOuter {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.productsInner {
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 24px 40px;
+}
+
+.productsHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.sectionTitle {
+  font-size: 35px;
+  font-weight: 800;
+}
+
+/* Gradient underline – samme som forsiden */
+.titleWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.titleWrapper::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #fca738, #ff74df);
+  bottom: 15px;
+}
+
+/* Selve rækken */
+.productsRow {
+  display: flex;
+  gap: 70px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  scrollbar-width: none;
+  align-items: center;
+}
+
+.productsRow::-webkit-scrollbar {
+  display: none;
+}
+
+/* -----------------------------------
+   LOADING / FEJL
+----------------------------------- */
+
+.loadingWrapper {
+  width: 100%;
+  padding: 120px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.loadingText {
+  font-size: 20px;
+  text-align: center;
+}
+
+.backLink {
+  background: none;
+  border: none;
+  color: #ff74df;
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: 6px;
+  text-decoration: underline;
+}
+
+.mainImage {
+  object-fit: cover;
+  cursor: zoom-in; /* nyt */
+}
+
+/* Modal overlay */
+.imageModalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.imageModalInner {
+  position: relative;
+  width: min(900px, 90vw);
+  aspect-ratio: 1 / 1;
+}
+
+.imageModalImage {
+  object-fit: contain;
+  cursor: zoom-out;
+}
