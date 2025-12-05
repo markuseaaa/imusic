@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -367,6 +367,18 @@ export default function ProductDetail({ productId }) {
     );
   };
 
+  const selectVersion = useCallback(
+    (index, version) => {
+      setActiveVersionIndex(index);
+      if (!version?.image) return;
+      const matchIndex = galleryImages.findIndex((url) => url === version.image);
+      if (matchIndex >= 0) {
+        setCurrentImageIndex(matchIndex);
+      }
+    },
+    [galleryImages]
+  );
+
   const handleToggleFav = async () => {
     if (!product) return;
 
@@ -684,7 +696,7 @@ export default function ProductDetail({ productId }) {
                       ? styles.versionBadgeActive
                       : ""
                   }`}
-                  onClick={() => setActiveVersionIndex(index)}
+                  onClick={() => selectVersion(index, v)}
                 >
                   {v.name}
                 </button>
@@ -787,7 +799,7 @@ export default function ProductDetail({ productId }) {
                               ? styles.versionTabActive
                               : ""
                           }`}
-                          onClick={() => setActiveVersionIndex(index)}
+                          onClick={() => selectVersion(index, v)}
                         >
                           {v.name}
                         </button>

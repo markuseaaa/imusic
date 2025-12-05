@@ -172,14 +172,10 @@
 
 .thumbsRow {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
-  overflow-x: auto;
-  scrollbar-width: none;
+  max-width: calc((90px * 5) + (12px * 4)); /* maks 5 thumbs pr. række */
   padding-bottom: 5px;
-}
-
-.thumbsRow::-webkit-scrollbar {
-  display: none;
 }
 
 .thumbButton {
@@ -495,7 +491,7 @@
 .versionTab {
   border-radius: 8px;
   border: 1px solid #000000;
-  background: #f9fafb;
+  background: transparent;
   font-size: 15px;
   font-weight: 600;
   padding: 4px 8px;

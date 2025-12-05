@@ -78,7 +78,6 @@
   padding: 10px 0;
 }
 
-/* Matcher dit layout (fx max 1400px og 24px side-padding) */
 .searchInner {
   width: 100%;
   max-width: 1400px;
@@ -255,7 +254,7 @@
 }
 
 .removeItemButton:hover {
-  color: #ff74df; /* din signature gradient farve */
+  color: #ff74df;
 }
 
 /* ------------------------------------
@@ -396,7 +395,7 @@
   }
 
   .cartModal {
-    width: 300px; /* eller 260px hvis du vil gøre den endnu smallere */
-    padding: 18px 16px; /* lidt strammere padding så den føles kompakt */
+    width: 300px;
+    padding: 18px 16px;
   }
 }

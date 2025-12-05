@@ -46,6 +46,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "preview.redd.it",
       },
+      {
+        protocol: "https",
+        hostname: "www.kpopbazaar.com.au",
+      },
     ],
   },
 };

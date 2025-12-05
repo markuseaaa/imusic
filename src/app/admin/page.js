@@ -35,7 +35,6 @@ export default function AdminPage() {
   const [versionCodesAll, setVersionCodesAll] = useState([""]);
   const [versionDetailsAll, setVersionDetailsAll] = useState([""]);
   const [versionImagesAll, setVersionImagesAll] = useState([""]);
-  const [otherVersionName, setOtherVersionName] = useState("");
 
   const [lsVersionName, setLsVersionName] = useState("");
   const [lsVersionDetails, setLsVersionDetails] = useState("");
@@ -69,6 +68,7 @@ export default function AdminPage() {
   const isAlbum = mainType === "album";
   const merchType = isAlbum ? null : merchSubType;
   const isClothes = !isAlbum && merchType === "clothes";
+  const isOtherMerch = !isAlbum && merchType === "other";
 
   // ---------- HENT GRUPPER ----------
   useEffect(() => {
@@ -203,12 +203,21 @@ export default function AdminPage() {
 
       let versionsArray = null;
 
-      // Album + clothes bruger det almindelige versions-system
-      if ((isAlbumLocal || isClothesLocal) && versionTotal.trim() !== "") {
+      // Album + clothes + andet merch bruger det almindelige versions-system
+      if (
+        (isAlbumLocal || isClothesLocal || isOtherMerchLocal) &&
+        versionTotal.trim() !== ""
+      ) {
         const totalNum = parseInt(versionTotal, 10);
         if (!Number.isNaN(totalNum) && totalNum > 0) {
           versionsArray = Array.from({ length: totalNum }, (_, i) => ({
-            name: (versionNamesAll[i] || "").trim() || `Version ${i + 1}`,
+            name:
+              (versionNamesAll[i] || "").trim() ||
+              (isAlbumLocal
+                ? `Version ${i + 1}`
+                : isClothesLocal
+                ? `Størrelse ${i + 1}`
+                : `Version ${i + 1}`),
             code: (versionCodesAll[i] || "").trim() || null,
             details: (versionDetailsAll[i] || "").trim() || "",
             image: (versionImagesAll[i] || "").trim() || null,
@@ -223,16 +232,6 @@ export default function AdminPage() {
             code: null,
             details: lsVersionDetails.trim() || "",
             image: lsVersionImage.trim() || null,
-          },
-        ];
-      } else if (isOtherMerchLocal && otherVersionName.trim() !== "") {
-        // 🔹 Andet merch: én version
-        versionsArray = [
-          {
-            name: otherVersionName.trim(),
-            code: null,
-            details: merchDetails.trim() || "",
-            image: coverImageUrl.trim() || null,
           },
         ];
       }
@@ -321,7 +320,6 @@ export default function AdminPage() {
       setLsVersionName("");
       setLsVersionDetails("");
       setLsVersionImage("");
-      setOtherVersionName("");
 
       setPobLabel("");
       setBadgePreorder(false);
@@ -602,12 +600,14 @@ export default function AdminPage() {
             </div>
           )}
 
-          {(isAlbum || isClothes) && (
+          {(isAlbum || isClothes || isOtherMerch) && (
             <>
               <label>
                 {isAlbum
                   ? "Antal versioner i alt (for albummet)"
-                  : "Antal størrelser i alt (for produktet)"}
+                  : isClothes
+                  ? "Antal størrelser i alt (for produktet)"
+                  : "Antal versioner i alt (for merch)"}
                 <input
                   type="number"
                   min="1"
@@ -621,10 +621,11 @@ export default function AdminPage() {
                       const next = [...prev];
                       next.length = count;
                       for (let i = 0; i < count; i++) {
-                        if (!next[i])
-                          next[i] = isAlbum
-                            ? `Version ${i + 1}`
-                            : `Størrelse ${i + 1}`;
+                        if (!next[i]) {
+                          if (isAlbum) next[i] = `Version ${i + 1}`;
+                          else if (isClothes) next[i] = `Størrelse ${i + 1}`;
+                          else next[i] = `Version ${i + 1}`;
+                        }
                       }
                       return next;
                     });
@@ -647,7 +648,7 @@ export default function AdminPage() {
                       return next;
                     });
                   }}
-                  placeholder={isAlbum ? "fx 2" : "fx 3"}
+                  placeholder={isAlbum ? "fx 2" : isClothes ? "fx 3" : "fx 2"}
                 />
               </label>
 
@@ -662,7 +663,9 @@ export default function AdminPage() {
                         <label>
                           {isAlbum
                             ? `Version ${index + 1} navn`
-                            : `Størrelse ${index + 1} navn`}
+                            : isClothes
+                            ? `Størrelse ${index + 1} navn`
+                            : `Version ${index + 1} navn`}
                           <input
                             type="text"
                             value={versionNamesAll[index] || ""}
@@ -677,7 +680,9 @@ export default function AdminPage() {
                         <label>
                           {isAlbum
                             ? `Version ${index + 1} kode`
-                            : `Størrelse ${index + 1} kode`}
+                            : isClothes
+                            ? `Størrelse ${index + 1} kode`
+                            : `Version ${index + 1} kode`}
                           <input
                             type="text"
                             value={versionCodesAll[index] || ""}
@@ -687,7 +692,11 @@ export default function AdminPage() {
                               setVersionCodesAll(next);
                             }}
                             placeholder={
-                              isAlbum ? "fx A, B, RANDOM" : "fx M, L"
+                              isAlbum
+                                ? "fx A, B, RANDOM"
+                                : isClothes
+                                ? "fx M, L"
+                                : "fx Makestar, Weverse"
                             }
                           />
                         </label>
@@ -695,7 +704,9 @@ export default function AdminPage() {
                         <label>
                           {isAlbum
                             ? `Version ${index + 1} detaljer`
-                            : `Størrelse ${index + 1} detaljer`}
+                            : isClothes
+                            ? `Størrelse ${index + 1} detaljer`
+                            : `Version ${index + 1} detaljer`}
                           <textarea
                             value={versionDetailsAll[index] || ""}
                             onChange={(e) => {
@@ -710,7 +721,9 @@ export default function AdminPage() {
                         <label>
                           {isAlbum
                             ? `Version ${index + 1} billede URL`
-                            : `Størrelse ${index + 1} billede URL`}
+                            : isClothes
+                            ? `Størrelse ${index + 1} billede URL`
+                            : `Version ${index + 1} billede URL`}
                           <input
                             type="text"
                             value={versionImagesAll[index] || ""}
@@ -770,6 +783,7 @@ export default function AdminPage() {
               />
             </label>
           </div>
+
           {mainType === "merch" && merchSubType === "other" && (
             <label>
               Ekstra billeder (1 URL pr. linje)
@@ -790,18 +804,6 @@ export default function AdminPage() {
                 value={merchDetails}
                 onChange={(e) => setMerchDetails(e.target.value)}
                 placeholder="Beskriv indhold, materiale, størrelse-guide, hvad der følger med osv."
-              />
-            </label>
-          )}
-
-          {mainType === "merch" && merchSubType === "other" && (
-            <label>
-              Version navn
-              <input
-                type="text"
-                value={otherVersionName}
-                onChange={(e) => setOtherVersionName(e.target.value)}
-                placeholder="fx Makestar POB, Weverse Gift, Japan ver."
               />
             </label>
           )}
