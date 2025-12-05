@@ -6,8 +6,17 @@
 
 .page button,
 .page a {
-  color: inherit;
   -webkit-tap-highlight-color: transparent; /* fjerner blå touch-highlight på iOS */
+}
+
+/* Default tekstfarve på knapper (sort i stedet for blå) */
+.page button {
+  color: #111;
+}
+
+/* Links kan arve eller også være sort – du vælger */
+.page a {
+  color: inherit;
 }
 
 /* Centreret indhold – matcher forsiden/kategori */
@@ -316,7 +325,7 @@
 }
 
 .versionRow button.versionBadge.versionBadgeActive {
-  background: linear-gradient(90deg, #ff86b4, #e99aff);
+  background: linear-gradient(90deg, #fca738, #ff74df);
   color: #fff;
   border-color: transparent;
 }
@@ -489,13 +498,14 @@
   background: #f9fafb;
   font-size: 15px;
   font-weight: 600;
-  padding: 6px 8px;
+  padding: 4px 8px;
   cursor: pointer;
+  color: white;
 }
 
-.versionTabActive {
+.page .versionTabActive {
   background: linear-gradient(90deg, #fca738, #ff74df);
-  color: #ffffff;
+  color: white;
   border-color: transparent;
 }
 
