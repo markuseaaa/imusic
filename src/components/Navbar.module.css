@@ -257,3 +257,146 @@
 .removeItemButton:hover {
   color: #ff74df; /* din signature gradient farve */
 }
+
+/* ------------------------------------
+   MOBILE MENU OVERLAY + PANEL
+------------------------------------- */
+.mobileOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 999;
+  display: flex;
+}
+
+/* Selve menu-panelet (venstre side) */
+.mobileMenu {
+  width: 260px;
+  height: 100%;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+
+  /* GRADIENT BAGGRUND */
+  background: linear-gradient(180deg, #fca738, #ff74df);
+
+  /* Slide-in animation */
+  transform: translateX(0);
+  animation: slideIn 0.32s ease forwards;
+
+  box-shadow: 4px 0 25px rgba(0, 0, 0, 0.18);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Menu links */
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* luft mellem links */
+  margin-top: 12px;
+}
+
+.mobileNav a {
+  font-family: Inter, sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: white;
+  text-decoration: none;
+  padding: 4px 0;
+}
+
+/* Default: desktop layout */
+.leftMobile {
+  display: none;
+}
+
+.searchMobile {
+  display: none;
+}
+
+.searchDesktop {
+  display: inline-flex;
+}
+
+/* ------------------------------------
+   MOBIL LAYOUT
+------------------------------------- */
+@media (max-width: 768px) {
+  /* Container for burger + mobil search */
+  .leftMobile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .burgerButton {
+    display: block;
+    background: none;
+    border: none;
+    padding: 6px;
+    cursor: pointer;
+  }
+
+  .searchMobile {
+    display: inline-flex;
+  }
+
+  /* Skjul desktop search på mobil */
+  .searchDesktop {
+    display: none;
+  }
+
+  /* Skjul currency på mobil */
+  .currencyIcon {
+    display: none !important;
+  }
+
+  /* Skjul nav-links på mobil */
+  .nav {
+    display: none;
+  }
+
+  /* Logo centreret i midten */
+  .inner {
+    padding: 0 16px;
+    height: 58px;
+    position: relative;
+  }
+
+  .logo {
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Actions (profil + kurv) til højre */
+  .actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .profileIconButton {
+    order: 1;
+  }
+
+  .cartIconButton {
+    order: 2;
+  }
+
+  .cartModal {
+    width: 300px; /* eller 260px hvis du vil gøre den endnu smallere */
+    padding: 18px 16px; /* lidt strammere padding så den føles kompakt */
+  }
+}

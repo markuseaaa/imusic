@@ -23,23 +23,31 @@ const FEATURED_GROUPS = [
 const slides = [
   {
     id: 0,
-    src: "/hero/zb1-hero.png",
+    desktopSrc: "/hero/zb1-hero-desktop.png",
+    mobileSrc: "/hero/zb1-hero-mobile.png",
     alt: "Zerobaseone – Never Say Never",
+    productId: "-OfVsnMUkNKv7JEwitXP",
   },
   {
     id: 1,
-    src: "/hero/zb1-hero.png",
-    alt: "Stray Kids – SKZ IT TAPE - DO IT",
+    desktopSrc: "/hero/lesserafim-hero-desktop.png",
+    mobileSrc: "/hero/lesserafim-hero-mobile.png",
+    alt: "LE SSERAFIM - SPAGHETTI",
+    productId: "-OfYyPJVZcide6-zR_2r",
   },
   {
     id: 2,
-    src: "/hero/zb1-hero.png",
-    alt: "IVE – Ive Secret",
+    desktopSrc: "/hero/skz-hero-desktop2.png",
+    mobileSrc: "/hero/skz-hero-mobile.png",
+    alt: "Stray Kids – SKZ IT TAPE - DO IT",
+    productId: "-OfYckGSt70KWVjTSQpE",
   },
   {
     id: 3,
-    src: "/hero/zb1-hero.png",
-    alt: "K-POP merch og lightsticks",
+    desktopSrc: "/hero/illit-hero-desktop.png",
+    mobileSrc: "/hero/illit-hero-mobile.png",
+    alt: "ILLIT - Not Cute Anymore",
+    productId: "-OfiJ63fMBSUr0J-wsNS",
   },
 ];
 
@@ -144,6 +152,7 @@ export default function HomePage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [products, setProducts] = useState([]);
   const [groups, setGroups] = useState({});
+  const router = useRouter();
 
   // HERO auto-slide
   useEffect(() => {
@@ -303,14 +312,34 @@ export default function HomePage() {
           >
             {slides.map((slide) => (
               <div key={slide.id} className={styles.heroSlide}>
-                <Image
-                  src={slide.src}
-                  alt={slide.alt}
-                  fill
-                  priority={slide.id === 0}
-                  className={styles.heroImage}
-                  sizes="100vw"
-                />
+                <button
+                  type="button"
+                  className={styles.heroSlideButton}
+                  onClick={() => {
+                    if (slide.productId) {
+                      router.push(`/produkt/${slide.productId}`);
+                    }
+                  }}
+                  aria-label={`Gå til produkt: ${slide.alt}`}
+                >
+                  {/* DESKTOP HERO */}
+                  <Image
+                    src={slide.desktopSrc}
+                    alt={slide.alt}
+                    fill
+                    priority={slide.id === 0}
+                    className={`${styles.heroImage} ${styles.heroImageDesktop}`}
+                    sizes="100vw"
+                  />
+                  {/* MOBIL HERO */}
+                  <Image
+                    src={slide.mobileSrc}
+                    alt={slide.alt}
+                    fill
+                    className={`${styles.heroImage} ${styles.heroImageMobile}`}
+                    sizes="100vw"
+                  />
+                </button>
               </div>
             ))}
           </div>

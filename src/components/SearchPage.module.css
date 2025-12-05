@@ -179,33 +179,21 @@
 /* ------------------------------
    PRODUKT GRID
 --------------------------------- */
-/* Lille skærm: 1 pr. række */
+
+/* Mobil + tablet: 2 pr. række */
 .grid {
   display: grid;
-  gap: 6rem;
+  gap: 1rem;
   margin-top: 32px;
-  grid-template-columns: 1fr;
-}
-
-/* Mellem skærm: 2 pr. række */
-@media (min-width: 600px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 /* Desktop: 4 kolonner */
 @media (min-width: 900px) {
   .grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6rem;
   }
-}
-
-/* Wrapper rundt om ProductCard – vi rører ikke selve kortets CSS */
-.cardWrapper {
-  width: 100%;
-  display: flex;
-  justify-content: flex-start; /* kortet står til venstre i cellen */
 }
 
 /* ------------------------------
@@ -270,4 +258,69 @@
 
 .suggestionChip:hover {
   background: #f7f7f7;
+}
+
+/* ---------------------------------------
+   MOBIL OPTIMERING (≤ 768px)
+---------------------------------------- */
+@media (max-width: 768px) {
+  /* ---------- Søgefelt ---------- */
+  .searchInput {
+    padding: 12px 12px;
+    padding-right: 36px;
+    font-size: 13px;
+  }
+
+  .searchIcon {
+    right: 10px;
+    width: 16px;
+    height: 16px;
+  }
+
+  /* ---------- Filter pills ---------- */
+  .filterSelect {
+    padding: 8px 14px; /* mindre padding */
+    padding-right: 30px; /* mindre plads til pil */
+    font-size: 11px; /* fra 13px → 11px */
+    border-radius: 10px;
+    background-size: 12px 12px; /* mindre pil */
+    background-position: right 10px center;
+  }
+
+  .filterSelectActive {
+    padding: 8px 14px;
+    padding-right: 30px;
+    font-size: 11px;
+  }
+
+  .filtersRow {
+    gap: 6px; /* mindre afstand mellem filterknapper */
+  }
+
+  /* ---------- Clear X knap ---------- */
+  .clearBtn {
+    width: 16px;
+    height: 16px;
+    font-size: 12px;
+  }
+
+  /* ---------- Titel ---------- */
+  .sectionTitle {
+    font-size: 26px; /* lidt mindre */
+  }
+
+  .titleWrapper::after {
+    bottom: 10px; /* hæv stregen lidt */
+  }
+
+  /* ---------- Page padding ---------- */
+  .categoryContent {
+    padding: 24px 16px 48px; /* lidt mindre sidepadding */
+  }
+
+  .filterSelectActive {
+    background-image: none;
+    color: black;
+    border-color: #ff86b4; /* lille hint af brand */
+  }
 }

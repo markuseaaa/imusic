@@ -415,3 +415,199 @@
   text-align: center;
   font-size: 18px;
 }
+
+/* ------------------------------
+   KUN MOBIL (≤ 768px)
+------------------------------ */
+@media (max-width: 768px) {
+  .page {
+    align-items: flex-start;
+  }
+
+  .inner {
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px 16px 50px;
+  }
+
+  .sidebar {
+    width: 100%;
+    position: static;
+    top: auto;
+  }
+
+  .greeting {
+    font-size: 26px;
+  }
+
+  /* Horisontal scroll-menu på mobil */
+  .menu {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    margin-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .menu::-webkit-scrollbar {
+    display: none;
+  }
+
+  .menuItem,
+  .menuItemDanger {
+    flex: 0 0 auto;
+    font-size: 16px;
+    padding: 5px 14px;
+    border-radius: 8px;
+    border: 1px solid black;
+    color: black;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .menuItemActive {
+    background: linear-gradient(90deg, #fca738, #ff74df);
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    color: #fff;
+    border-color: transparent;
+  }
+
+  .menuItemDanger {
+    border-color: rgba(201, 24, 24, 0.3);
+    background: #fff5f5;
+    color: #c91818;
+  }
+
+  .bottomActions {
+    margin-top: 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .content {
+    flex: none;
+    width: 100%;
+  }
+
+  /* Orders mere kompakte på mobil */
+  .orderCard {
+    padding: 14px 14px 16px;
+    border-radius: 14px;
+  }
+
+  .orderHeader {
+    font-size: 13px;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .orderBody {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .orderItemRow {
+    align-items: flex-start;
+  }
+
+  .orderItemImageWrapper {
+    width: 100px;
+    height: 100px;
+    border-radius: 14px;
+  }
+
+  .orderItemTitle {
+    font-size: 13px;
+  }
+
+  .orderItemArtist,
+  .orderItemVersion,
+  .orderItemQuantity,
+  .orderItemMeta,
+  .orderShippingText {
+    font-size: 11px;
+  }
+
+  .wishlistTopRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .wishlistTitle {
+    font-size: 24px;
+  }
+
+  .shareWishlistButton {
+    font-size: 14px;
+    padding: 6px 12px;
+    color: black;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ⭐ ØNSKELISTE: 2 produkter pr. række på mobil */
+  .wishlistGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    width: 100%;
+  }
+
+  /* Hjertet lidt justeret */
+  .wishlistHeartButton {
+    top: 8px;
+    right: 12px;
+  }
+
+  /* ⭐ FAVORIT ARTISTER: også 2 pr. række på mobil */
+  .artistsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    width: 100%;
+  }
+
+  .artistName {
+    font-size: 18px;
+  }
+
+  .artistStarIcon {
+    font-size: 22px;
+  }
+
+  .artistStarMinus {
+    top: 3px;
+    right: 6.5px;
+  }
+
+  /* Profilform – fuld bredde på mobil */
+  .profileForm {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+  }
+
+  .label {
+    font-size: 14px;
+  }
+
+  .input {
+    height: 48px;
+    font-size: 14px;
+    border-radius: 10px;
+    padding: 0 14px;
+  }
+
+  .saveButton {
+    height: 48px;
+    font-size: 15px;
+    border-radius: 12px;
+  }
+
+  .loading {
+    margin-top: 80px;
+    font-size: 16px;
+  }
+}

@@ -113,3 +113,69 @@
   background-color: transparent;
   color: #111;
 }
+
+/* ------------------------------
+   MOBIL VERSION
+------------------------------ */
+@media (max-width: 768px) {
+  .inner {
+    margin-top: 40px; /* mindre top distance */
+    padding: 0 20px 60px;
+    max-width: 100%;
+  }
+
+  .title {
+    font-size: 30px; /* mindre titel */
+    margin-bottom: 6px;
+  }
+
+  .subtitle {
+    font-size: 14px; /* mindre undertitel */
+    margin-bottom: 28px;
+    max-width: 100%;
+  }
+
+  .form {
+    gap: 12px; /* tættere afstand */
+  }
+
+  .label {
+    font-size: 14px;
+    gap: 4px;
+  }
+
+  .input {
+    height: 48px; /* kortere input */
+    font-size: 14px;
+    padding: 0 14px;
+    border-radius: 10px;
+  }
+
+  .input::placeholder {
+    font-size: 13px;
+  }
+
+  .forgot {
+    font-size: 12px;
+  }
+
+  .error,
+  .info {
+    font-size: 13px;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    height: 48px; /* mindre knapper */
+    font-size: 15px;
+    border-radius: 12px;
+  }
+
+  .primaryButton {
+    margin-top: 4px;
+  }
+
+  .secondaryButton {
+    margin-top: 4px;
+  }
+}

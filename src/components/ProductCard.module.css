@@ -182,3 +182,49 @@
   font-weight: 800;
   color: #d61f1f;
 }
+
+@media (max-width: 768px) {
+  .card {
+    width: 165px; /* fra 250 → 210 (mere diskret ændring) */
+    gap: 5px;
+  }
+
+  .imageWrapper {
+    height: 165px; /* matcher card-størrelsen */
+    border-radius: 18px;
+  }
+
+  .title {
+    font-size: 18px; /* fra 25 → 20 */
+  }
+
+  .artist {
+    font-size: 15px; /* fra 20 → 17 */
+  }
+
+  .versionBadge,
+  .versionBadgeMore {
+    font-size: 8px;
+    padding: 3px 7px;
+    border-radius: 5px;
+  }
+
+  .badges .badge {
+    font-size: 8px;
+    padding: 4px 8px;
+    border-radius: 5px;
+  }
+
+  .price,
+  .salePrice,
+  .oldPrice {
+    font-size: 13px; /* lidt mindre men stadig tydelig */
+  }
+
+  .preorderOverlayBadge {
+    font-size: 9px;
+    padding: 3px 7px;
+    top: 6px;
+    left: 6px;
+  }
+}

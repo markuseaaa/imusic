@@ -54,26 +54,28 @@
 /* ------------------------------
    PRODUKT GRID
 --------------------------------- */
-/* Lille skærm: 1 pr. række */
+
+/* Mobil + tablet: 2 pr. række */
 .grid {
   display: grid;
-  gap: 6rem;
+  gap: 1rem;
   margin-top: 32px;
-  grid-template-columns: 1fr;
-}
-
-/* Mellem skærm: 2 pr. række */
-@media (min-width: 600px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 /* Desktop: 4 kolonner */
 @media (min-width: 900px) {
   .grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6rem;
   }
+}
+
+/* Wrapper rundt om ProductCard – vi rører ikke selve kortets CSS */
+.cardWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
 }
 
 /* Wrapper rundt om ProductCard – vi rører ikke selve kortets CSS */

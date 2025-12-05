@@ -46,7 +46,7 @@
   gap: 10px;
 }
 
-/* Inaktiv dot: grÃ¥ */
+/* Inaktiv dot: grå */
 .dot {
   width: 10px;
   height: 10px;
@@ -54,12 +54,12 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  background: #d1d5db; /* neutral grÃ¥ */
+  background: #d1d5db; /* neutral grå */
   opacity: 0.9;
   transition: width 0.2s ease, background 0.2s ease, opacity 0.2s ease;
 }
 
-/* Aktiv dot: gradient FCA738 â†’ FF74DF og lidt lÃ¦ngere */
+/* Aktiv dot: gradient FCA738 → FF74DF og lidt længere */
 .dotActive {
   width: 22px;
   background: linear-gradient(90deg, #fca738, #ff74df);
@@ -196,4 +196,131 @@
   border-radius: 6px;
   background: linear-gradient(90deg, #fca738, #ff74df);
   bottom: 15px;
+}
+
+/* Default: desktop viser desktop-billede */
+.heroImageDesktop {
+  display: block;
+}
+
+.heroImageMobile {
+  display: none;
+}
+
+.heroSlideButton {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: block;
+  position: relative; /* så fill-images har en relativ parent */
+}
+
+/* -----------------------------
+   MOBIL-VERSION (telefoner)
+------------------------------ */
+@media (max-width: 768px) {
+  .heroImageDesktop {
+    display: none;
+  }
+
+  .heroImageMobile {
+    display: block;
+  }
+
+  .heroWrapper {
+    width: 100%;
+    height: 155vw; /* ← vigtig linje */
+    aspect-ratio: unset; /* fjern den gamle ratio */
+  }
+
+  .heroSlide {
+    height: 100%;
+  }
+
+  .heroImage {
+    object-fit: cover;
+  }
+
+  .dots {
+    bottom: 12px;
+    gap: 8px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .dotActive {
+    width: 18px;
+  }
+
+  /* GRUPPER – gør dem til et horisontalt scrollbart row */
+  .groupsRow {
+    padding: 12px 16px;
+    margin-top: 0;
+    gap: 16px;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .groupsRow::-webkit-scrollbar {
+    display: none;
+  }
+
+  .groupCard {
+    flex-shrink: 0;
+  }
+
+  .groupImageWrapper {
+    width: 120px;
+    height: 120px;
+    border-radius: 22px;
+  }
+
+  .groupName {
+    font-size: 16px;
+    margin-top: 6px;
+  }
+
+  /* POPULÆRT – mindre spacing og tekst */
+  .productsOuter {
+    margin-top: -10px;
+  }
+
+  .productsInner {
+    padding: 0 16px 28px;
+  }
+
+  .productsHeader {
+    margin-bottom: 8px;
+  }
+
+  .sectionTitle {
+    font-size: 24px;
+  }
+
+  .sectionArrow {
+    font-size: 28px;
+  }
+
+  .productsRow {
+    gap: 20px;
+    padding-bottom: 10px;
+  }
+
+  .seeAllCard {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+  }
+
+  .seeAllText {
+    font-size: 16px;
+  }
 }

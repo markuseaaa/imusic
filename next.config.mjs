@@ -12,6 +12,7 @@ const nextConfig = {
       "linefriendssquare.com",
       "iscale.iheart.com",
       "imusic.b-cdn.net",
+      "preview.redd.it",
     ],
   },
 };

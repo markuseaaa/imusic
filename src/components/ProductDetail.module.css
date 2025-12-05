@@ -4,6 +4,12 @@
   margin: 0;
 }
 
+.page button,
+.page a {
+  color: inherit;
+  -webkit-tap-highlight-color: transparent; /* fjerner blå touch-highlight på iOS */
+}
+
 /* Centreret indhold – matcher forsiden/kategori */
 .detailContent {
   width: 100%;
@@ -404,7 +410,7 @@
   border-radius: 12px;
   cursor: pointer;
   background: linear-gradient(90deg, #fca738, #ff74df);
-  color: white;
+  color: white !important;
   width: 75%;
 }
 
@@ -608,4 +614,222 @@
 .imageModalImage {
   object-fit: contain;
   cursor: zoom-out;
+}
+
+/* -----------------------------------
+   MOBIL-VERSION
+----------------------------------- */
+@media (max-width: 768px) {
+  .detailContent {
+    flex-direction: column;
+    padding: 20px 16px 32px;
+    gap: 28px;
+    margin-top: 10px;
+  }
+
+  .left,
+  .right {
+    flex: none;
+    width: 100%;
+  }
+
+  /* Hovedbillede fuld bredde, kvadratisk */
+  .imageMainWrapper {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 20px;
+  }
+
+  .mainImage {
+    cursor: zoom-in; /* beholder din zoom, men på mobil */
+  }
+
+  /* Skjul thumbnails på mobil */
+  .thumbsRow {
+    display: none;
+  }
+
+  /* Badges lidt tættere på kanten */
+  .badgeRow {
+    top: 10px;
+    left: 10px;
+  }
+
+  .badge {
+    font-size: 13px;
+    padding: 4px 8px;
+    border-radius: 6px;
+  }
+
+  /* Pile en anelse mindre på mobil */
+  .navArrow {
+    width: 44px;
+    height: 44px;
+    font-size: 26px;
+  }
+
+  .arrowIcon {
+    font-size: 18px;
+  }
+
+  /* Titler og kunstner */
+  .productTitle {
+    font-size: 28px;
+  }
+
+  .artistName {
+    font-size: 20px;
+  }
+
+  .heartIcon,
+  .heartIconFilled {
+    font-size: 26px;
+  }
+
+  .starIcon {
+    font-size: 20px;
+  }
+
+  /* Version badges */
+  .versionRow {
+    margin-top: 4px;
+  }
+
+  .versionBadge {
+    font-size: 13px;
+    padding: 3px 8px;
+  }
+
+  .pobBadge {
+    font-size: 13px;
+    padding: 3px 8px;
+  }
+
+  /* Meta tekst tættere på */
+  .metaText {
+    margin-top: 16px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* Pris + kurv */
+  .priceRow {
+    margin-top: 4px;
+  }
+
+  .price,
+  .oldPrice,
+  .salePrice {
+    font-size: 22px;
+  }
+
+  .cartRow {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+  }
+
+  .quantitySelector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    width: auto;
+  }
+
+  .qtyButton {
+    padding: 10px 25px;
+    font-size: 20px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .qtyValue {
+    padding: 0 6px;
+    min-width: 0;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .addToCartButton {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 0;
+  }
+
+  /* Detaljer sektion */
+  .detailsSection {
+    margin-top: 16px;
+  }
+
+  .detailsHeader {
+    font-size: 18px;
+  }
+
+  .detailsText {
+    font-size: 16px;
+  }
+
+  .releaseDate {
+    font-size: 14px;
+  }
+
+  .detailsSubTitle {
+    font-size: 18px;
+  }
+
+  .versionTab {
+    font-size: 13px;
+    padding: 5px 8px;
+  }
+
+  .versionTabContent {
+    font-size: 14px;
+  }
+
+  /* -----------------------------------
+     PRODUKTSEKTIONER UNDER – som forsiden
+  ----------------------------------- */
+
+  .productsOuter {
+    margin-top: -10px;
+  }
+
+  .productsInner {
+    padding: 0 16px 28px;
+  }
+
+  .productsHeader {
+    margin-bottom: 8px;
+  }
+
+  .sectionTitle {
+    font-size: 24px;
+  }
+
+  .productsRow {
+    gap: 20px;
+    padding-bottom: 10px;
+  }
+
+  /* Disse klasser gør ikke skade, selv hvis de ikke bruges her,
+     men matcher din forside-stil */
+  .sectionArrow {
+    font-size: 28px;
+  }
+
+  .seeAllCard {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+  }
+
+  .seeAllText {
+    font-size: 16px;
+  }
 }

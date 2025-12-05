@@ -19,6 +19,8 @@ export default function Navbar() {
 
   const { items, totalQuantity, totalPrice, clearCart, removeItem } = useCart();
 
+  const [menuOpen, setMenuOpen] = useState(false);
+
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
       setUser(u || null);
@@ -78,7 +80,26 @@ export default function Navbar() {
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
-        {/* LEFT — LOGO */}
+        {/* LEFT — BURGER + MOBILE SEARCH */}
+        <div className={styles.leftMobile}>
+          {/* BURGER (mobil) */}
+          <button
+            className={styles.burgerButton}
+            onClick={() => setMenuOpen((prev) => !prev)}
+          >
+            <Image src="/icons/burger.svg" alt="Menu" width={26} height={26} />
+          </button>
+
+          {/* SEARCH (MOBIL) */}
+          <button
+            className={`${styles.iconButton} ${styles.searchMobile}`}
+            onClick={() => setSearchOpen((prev) => !prev)}
+          >
+            <Image src="/icons/search.svg" alt="Søg" width={22} height={22} />
+          </button>
+        </div>
+
+        {/* CENTER — LOGO */}
         <Link href="/" className={styles.logo}>
           <Image
             src="/icons/imusiclogo.png"
@@ -89,7 +110,7 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* CENTER — NAV LINKS */}
+        {/* CENTER (DESKTOP) — NAV LINKS */}
         <nav className={styles.nav}>
           <Link href="/" className={styles.active}>
             K-POP
@@ -103,15 +124,16 @@ export default function Navbar() {
 
         {/* RIGHT — ICONS */}
         <div className={styles.actions}>
-          {/* SEARCH ICON TOGGLE */}
+          {/* SEARCH (DESKTOP) */}
           <button
-            className={styles.iconButton}
+            className={`${styles.iconButton} ${styles.searchDesktop}`}
             onClick={() => setSearchOpen((prev) => !prev)}
           >
             <Image src="/icons/search.svg" alt="Søg" width={22} height={22} />
           </button>
 
-          <button className={styles.iconButton}>
+          {/* CURRENCY (skjules på mobil) */}
+          <button className={`${styles.iconButton} ${styles.currencyIcon}`}>
             <Image
               src="/icons/currency.svg"
               alt="Valuta"
@@ -120,8 +142,9 @@ export default function Navbar() {
             />
           </button>
 
+          {/* PROFIL */}
           <button
-            className={styles.iconButton}
+            className={`${styles.iconButton} ${styles.profileIconButton}`}
             onClick={() => {
               if (user) {
                 router.push("/profil");
@@ -138,8 +161,9 @@ export default function Navbar() {
             />
           </button>
 
+          {/* KURV */}
           <button
-            className={styles.iconButton}
+            className={`${styles.iconButton} ${styles.cartIconButton}`}
             onClick={() => setCartOpen(true)}
           >
             <div className={styles.basketWrapper}>
@@ -156,6 +180,40 @@ export default function Navbar() {
           </button>
         </div>
       </div>
+
+      {/* MOBILE MENU OVERLAY */}
+      {menuOpen && (
+        <div
+          className={styles.mobileOverlay}
+          onClick={() => setMenuOpen(false)}
+        >
+          <div
+            className={styles.mobileMenu}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <nav className={styles.mobileNav}>
+              <Link href="/" onClick={() => setMenuOpen(false)}>
+                K-POP
+              </Link>
+              <Link href="/cd" onClick={() => setMenuOpen(false)}>
+                CD’ER
+              </Link>
+              <Link href="/vinyl" onClick={() => setMenuOpen(false)}>
+                VINYL
+              </Link>
+              <Link href="/film" onClick={() => setMenuOpen(false)}>
+                FILM
+              </Link>
+              <Link href="/books" onClick={() => setMenuOpen(false)}>
+                BØGER
+              </Link>
+              <Link href="/merch" onClick={() => setMenuOpen(false)}>
+                MERCHANDISE
+              </Link>
+            </nav>
+          </div>
+        </div>
+      )}
 
       {/* SEARCH BAR UNDER WHOLE NAVBAR */}
       {searchOpen && (
