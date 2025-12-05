@@ -1,18 +1,51 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [
-      "external-preview.redd.it",
-      "cherrychumagazine.com",
-      "kpopofficial.com",
-      "koreajoongangdaily.joins.com",
-      "cdn.shopify.com",
-      "nolae.eu",
-      "m.media-amazon.com",
-      "linefriendssquare.com",
-      "iscale.iheart.com",
-      "imusic.b-cdn.net",
-      "preview.redd.it",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "external-preview.redd.it",
+      },
+      {
+        protocol: "https",
+        hostname: "cherrychumagazine.com",
+      },
+      {
+        protocol: "https",
+        hostname: "kpopofficial.com",
+      },
+      {
+        protocol: "https",
+        hostname: "koreajoongangdaily.joins.com",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.shopify.com",
+      },
+      {
+        protocol: "https",
+        hostname: "nolae.eu",
+      },
+      {
+        protocol: "https",
+        hostname: "m.media-amazon.com",
+      },
+      {
+        protocol: "https",
+        hostname: "linefriendssquare.com",
+      },
+      {
+        protocol: "https",
+        hostname: "iscale.iheart.com",
+      },
+      {
+        protocol: "https",
+        hostname: "imusic.b-cdn.net",
+      },
+      {
+        protocol: "https",
+        hostname: "preview.redd.it",
+      },
     ],
   },
 };
