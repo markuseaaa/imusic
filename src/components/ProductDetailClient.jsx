@@ -700,8 +700,7 @@ export default function ProductDetail({ productId }) {
           <p className={styles.metaText}>
             Bestilles fra fjernlager
             <br />
-            Forventes klar til forsendelse senere (dummy tekst – kan kobles til
-            rigtige felter senere).
+            Forventes klar til forsendelse indenfor 14-21 dage.
           </p>
 
           <div className={styles.priceRow}>
