@@ -154,6 +154,41 @@ export default function HomePage() {
   const [groups, setGroups] = useState({});
   const router = useRouter();
 
+  const [touchStartX, setTouchStartX] = useState(null);
+  const [touchDeltaX, setTouchDeltaX] = useState(0);
+
+  const SWIPE_THRESHOLD = 50; // px – hvor langt man skal swipe før slide skifter
+
+  const handleTouchStart = (e) => {
+    if (e.touches.length !== 1) return;
+    setTouchStartX(e.touches[0].clientX);
+    setTouchDeltaX(0);
+  };
+
+  const handleTouchMove = (e) => {
+    if (touchStartX === null) return;
+    const currentX = e.touches[0].clientX;
+    setTouchDeltaX(currentX - touchStartX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX === null) return;
+
+    if (Math.abs(touchDeltaX) > SWIPE_THRESHOLD) {
+      setCurrentIndex((prev) => {
+        if (touchDeltaX < 0) {
+          // swipe til venstre → næste slide
+          return (prev + 1) % slides.length;
+        }
+        // swipe til højre → forrige slide
+        return (prev - 1 + slides.length) % slides.length;
+      });
+    }
+
+    setTouchStartX(null);
+    setTouchDeltaX(0);
+  };
+
   // HERO auto-slide
   useEffect(() => {
     const timer = setInterval(
@@ -305,7 +340,12 @@ export default function HomePage() {
     <div className={styles.page}>
       {/* HERO SLIDER */}
       <section className={styles.hero}>
-        <div className={styles.heroWrapper}>
+        <div
+          className={styles.heroWrapper}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <div
             className={styles.heroTrack}
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
