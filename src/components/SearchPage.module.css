@@ -248,9 +248,9 @@
 
 .suggestionChip {
   padding: 8px 14px;
-  border-radius: 999px;
-  border: 1px solid #111;
-  background: #fff;
+  border-radius: 8px;
+  border: 1px solid black;
+  background: transparent;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
