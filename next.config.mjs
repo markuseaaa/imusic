@@ -58,6 +58,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "cdn-images.dzcdn.net",
       },
+      {
+        protocol: "https",
+        hostname: "static.wikia.nocookie.net",
+      },
     ],
   },
 };
