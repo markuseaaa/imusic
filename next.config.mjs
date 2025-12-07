@@ -50,6 +50,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "www.kpopbazaar.com.au",
       },
+      {
+        protocol: "https",
+        hostname: "kprofiles.com",
+      },
     ],
   },
 };
