@@ -54,6 +54,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "kprofiles.com",
       },
+      {
+        protocol: "https",
+        hostname: "cdn-images.dzcdn.net",
+      },
     ],
   },
 };
