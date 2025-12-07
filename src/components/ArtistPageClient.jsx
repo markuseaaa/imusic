@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ref, get, set, remove } from "firebase/database";
 import { db, auth } from "@/../firebaseClient";
 import ProductCard from "@/components/ProductCard";
+import { applyPreorderBadge } from "@/utils/preorderBadge";
 import styles from "./ArtistPage.module.css";
 import Image from "next/image";
 import { onAuthStateChanged } from "firebase/auth";
@@ -66,35 +67,44 @@ export default function ArtistPageClient({ slug }) {
         }
 
         const [groupId, groupData] = groupEntry;
+        const todayStr = new Date().toISOString().slice(0, 10);
 
         const artistProducts = Object.entries(productsRaw)
           .filter(([, p]) => p.artistGroupId === groupId)
-          .map(([id, p]) => ({
-            id,
-            title: p.title,
-            image: p.images?.cover || null,
-            badges: p.badges || {},
-            price: p.price,
-            salePrice: p.salePrice ?? null,
-            onSale: !!p.onSale,
-            currency: p.currency || "DKK",
+          .map(([id, p]) => {
+            const badges = applyPreorderBadge(
+              p.badges || {},
+              p.releaseDate,
+              todayStr
+            );
 
-            versions: Array.isArray(p.versions) ? p.versions : [],
-            isRandomVersion: !!p.isRandomVersion,
-            pobLabel: p.pobLabel || "",
+            return {
+              id,
+              title: p.title,
+              image: p.images?.cover || null,
+              badges,
+              price: p.price,
+              salePrice: p.salePrice ?? null,
+              onSale: !!p.onSale,
+              currency: p.currency || "DKK",
 
-            artistGroupId: p.artistGroupId || null,
-            artist: groupData.name || p.search?.artistLower || "",
-            artistSlug: groupData.slug,
+              versions: Array.isArray(p.versions) ? p.versions : [],
+              isRandomVersion: !!p.isRandomVersion,
+              pobLabel: p.pobLabel || "",
 
-            mainType: p.mainType || null,
-            merchSubType: p.merchSubType || null,
-            groupType: p.groupType || null,
-            releaseDate: p.releaseDate || null,
+              artistGroupId: p.artistGroupId || null,
+              artist: groupData.name || p.search?.artistLower || "",
+              artistSlug: groupData.slug,
 
-            createdAt: p.createdAt || 0,
-            hasPOB: !!p.hasPOB,
-          }));
+              mainType: p.mainType || null,
+              merchSubType: p.merchSubType || null,
+              groupType: p.groupType || null,
+              releaseDate: p.releaseDate || null,
+
+              createdAt: p.createdAt || 0,
+              hasPOB: !!p.hasPOB,
+            };
+          });
 
         artistProducts.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
 

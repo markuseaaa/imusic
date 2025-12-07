@@ -4,6 +4,7 @@ import { useEffect, useState, useMemo } from "react";
 import { ref, get } from "firebase/database";
 import { db } from "@/../firebaseClient";
 import ProductCard from "@/components/ProductCard";
+import { applyPreorderBadge } from "@/utils/preorderBadge";
 import styles from "./CategoryPage.module.css";
 
 const FEATURED_GROUPS = [
@@ -69,6 +70,7 @@ export default function CategoryPageClient({ slug }) {
 
         const groupsRaw = groupsSnap.exists() ? groupsSnap.val() : {};
         const productsRaw = productsSnap.exists() ? productsSnap.val() : {};
+        const todayStr = new Date().toISOString().slice(0, 10);
 
         const list = Object.entries(productsRaw).map(([id, p]) => {
           const group = groupsRaw[p.artistGroupId] || {};
@@ -76,12 +78,17 @@ export default function CategoryPageClient({ slug }) {
           const artistName = group.name || p.search?.artistLower || "";
 
           const artistSlug = group.slug || slugifyName(artistName);
+          const badges = applyPreorderBadge(
+            p.badges || {},
+            p.releaseDate,
+            todayStr
+          );
 
           return {
             id,
             title: p.title,
             image: p.images?.cover || null,
-            badges: p.badges || {},
+            badges,
             price: p.price,
             salePrice: p.salePrice ?? null,
             onSale: !!p.onSale,

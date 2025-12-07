@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ref, get, set, remove } from "firebase/database";
 import { auth, db } from "@/../firebaseClient";
 import ProductCard from "@/components/ProductCard";
+import { applyPreorderBadge } from "@/utils/preorderBadge";
 import { FaRegHeart, FaHeart, FaStar } from "react-icons/fa6";
 import styles from "./ProductDetail.module.css";
 import { FaChevronLeft, FaChevronRight, FaChevronDown } from "react-icons/fa6";
@@ -120,17 +121,24 @@ export default function ProductDetail({ productId }) {
 
         const groupsRaw = groupsSnap.exists() ? groupsSnap.val() : {};
         const productsRaw = productsSnap.exists() ? productsSnap.val() : {};
+        const todayStr = new Date().toISOString().slice(0, 10);
 
         const thisProduct = productsRaw[productId] || null;
         const groupsMap = groupsRaw || {};
 
         const allProductsList = Object.entries(productsRaw).map(([id, p]) => {
           const group = groupsMap[p.artistGroupId] || {};
+          const badges = applyPreorderBadge(
+            p.badges || {},
+            p.releaseDate,
+            todayStr
+          );
+
           return {
             id,
             title: p.title,
             image: p.images?.cover || null,
-            badges: p.badges || {},
+            badges,
             price: p.price,
             salePrice: p.salePrice ?? null,
             onSale: !!p.onSale,
@@ -143,6 +151,7 @@ export default function ProductDetail({ productId }) {
             mainType: p.mainType || null,
             groupType: p.groupType || null,
             baseProductId: p.baseProductId || null,
+            releaseDate: p.releaseDate || null,
           };
         });
 
@@ -154,7 +163,12 @@ export default function ProductDetail({ productId }) {
         if (!thisProduct) {
           setProduct(null);
         } else {
-          setProduct({ id: productId, ...thisProduct });
+          const badges = applyPreorderBadge(
+            thisProduct.badges || {},
+            thisProduct.releaseDate,
+            todayStr
+          );
+          setProduct({ id: productId, ...thisProduct, badges });
           setCurrentImageIndex(0);
           setActiveVersionIndex(0);
         }

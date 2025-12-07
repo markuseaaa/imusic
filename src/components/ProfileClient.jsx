@@ -8,6 +8,7 @@ import { db } from "@/../firebaseClient";
 import { onAuthStateChanged, signOut, deleteUser } from "firebase/auth";
 import { ref, onValue, set, remove, get } from "firebase/database";
 import ProductCard from "@/components/ProductCard";
+import { applyPreorderBadge } from "@/utils/preorderBadge";
 import { FaHeart, FaStar } from "react-icons/fa6";
 import styles from "./ProfilePage.module.css";
 import Link from "next/link";
@@ -167,25 +168,31 @@ export default function ProfilePage() {
 
         const productsRaw = productsSnap.exists() ? productsSnap.val() : {};
         const groupsRaw = groupsSnap.exists() ? groupsSnap.val() : {};
+        const todayStr = new Date().toISOString().slice(0, 10);
 
         const list = productIds
           .map((productId) => {
             const p = productsRaw[productId];
             if (!p) return null;
 
-            const group = p.artistGroupId
-              ? groupsRaw[p.artistGroupId] || {}
-              : {};
+              const group = p.artistGroupId
+                ? groupsRaw[p.artistGroupId] || {}
+                : {};
+              const badges = applyPreorderBadge(
+                p.badges || {},
+                p.releaseDate,
+                todayStr
+              );
 
-            return {
-              id: productId,
-              image: p.images?.cover || null,
-              badges: p.badges || {},
-              title: p.title,
-              artist: group.name || p.search?.artistLower || "",
-              versions: Array.isArray(p.versions) ? p.versions : [],
-              isRandomVersion: !!p.isRandomVersion,
-              price: p.price,
+              return {
+                id: productId,
+                image: p.images?.cover || null,
+                badges,
+                title: p.title,
+                artist: group.name || p.search?.artistLower || "",
+                versions: Array.isArray(p.versions) ? p.versions : [],
+                isRandomVersion: !!p.isRandomVersion,
+                price: p.price,
               salePrice: p.salePrice ?? null,
               onSale: !!p.onSale,
               currency: p.currency || "DKK",

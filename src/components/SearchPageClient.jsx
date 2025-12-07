@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { ref, get } from "firebase/database";
 import { db } from "@/../firebaseClient";
 import ProductCard from "@/components/ProductCard";
+import { applyPreorderBadge } from "@/utils/preorderBadge";
 import styles from "./SearchPage.module.css";
 import Image from "next/image";
 
@@ -70,18 +71,24 @@ export default function SearchPageClient() {
 
         const groupsRaw = groupsSnap.exists() ? groupsSnap.val() : {};
         const productsRaw = productsSnap.exists() ? productsSnap.val() : {};
+        const todayStr = new Date().toISOString().slice(0, 10);
 
         const productList = Object.entries(productsRaw).map(([id, p]) => {
           const group =
             p.artistGroupId && groupsRaw[p.artistGroupId]
               ? groupsRaw[p.artistGroupId]
               : null;
+          const badges = applyPreorderBadge(
+            p.badges || {},
+            p.releaseDate,
+            todayStr
+          );
 
           return {
             id,
             title: p.title,
             image: p.images?.cover || null,
-            badges: p.badges || {},
+            badges,
             price: p.price,
             salePrice: p.salePrice ?? null,
             onSale: !!p.onSale,
