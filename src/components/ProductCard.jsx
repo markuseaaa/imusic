@@ -13,6 +13,7 @@ const BADGE_STYLES = {
   CLOTHES: { label: "CLOTHES", className: styles.badgeClothes },
   LIGHTSTICK: { label: "LIGHTSTICK", className: styles.badgeLightstick },
   DIGIPACK: { label: "DIGIPACK", className: styles.badgeDigipack },
+  VINYL: { label: "VINYL", className: styles.badgeVinyl },
   DIGITAL_EDITION: {
     label: "DIGITAL EDITION",
     className: styles.badgeDigitalEdition,

@@ -8,7 +8,7 @@ import { db } from "@/../firebaseClient";
 import { onAuthStateChanged, signOut, deleteUser } from "firebase/auth";
 import { ref, onValue, set, remove, get } from "firebase/database";
 import ProductCard from "@/components/ProductCard";
-import { applyPreorderBadge } from "@/utils/preorderBadge";
+import { applyPreorderBadge, applyVinylBadge } from "@/utils/preorderBadge";
 import { FaHeart, FaStar } from "react-icons/fa6";
 import styles from "./ProfilePage.module.css";
 import Link from "next/link";
@@ -178,11 +178,12 @@ export default function ProfilePage() {
               const group = p.artistGroupId
                 ? groupsRaw[p.artistGroupId] || {}
                 : {};
-              const badges = applyPreorderBadge(
+              const badgesPre = applyPreorderBadge(
                 p.badges || {},
                 p.releaseDate,
                 todayStr
               );
+              const badges = applyVinylBadge(badgesPre, p.mediaType);
 
               return {
                 id: productId,

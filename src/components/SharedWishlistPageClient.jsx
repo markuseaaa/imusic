@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { ref, get, set, remove } from "firebase/database";
 import { db } from "@/../firebaseClient";
 import ProductCard from "@/components/ProductCard";
-import { applyPreorderBadge } from "@/utils/preorderBadge";
+import { applyPreorderBadge, applyVinylBadge } from "@/utils/preorderBadge";
 import styles from "./SharedWishlistPage.module.css";
 
 export default function SharedWishlistPageClient({ userId }) {
@@ -57,11 +57,12 @@ export default function SharedWishlistPageClient({ userId }) {
             const group = p.artistGroupId
               ? groupsRaw[p.artistGroupId] || {}
               : {};
-            const badges = applyPreorderBadge(
+            const badgesPre = applyPreorderBadge(
               p.badges || {},
               p.releaseDate,
               todayStr
             );
+            const badges = applyVinylBadge(badgesPre, p.mediaType);
 
             return {
               id: productId,

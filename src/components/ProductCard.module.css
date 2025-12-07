@@ -89,6 +89,11 @@
   color: #ffffff;
 }
 
+.badgeVinyl {
+  background: #16a34a; /* grøn vinyl badge */
+  color: #ffffff;
+}
+
 .badgeDigipack {
   background: #3029fa; /* Lilla vibe */
   color: #ffffff;

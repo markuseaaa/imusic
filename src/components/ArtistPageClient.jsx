@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ref, get, set, remove } from "firebase/database";
 import { db, auth } from "@/../firebaseClient";
 import ProductCard from "@/components/ProductCard";
-import { applyPreorderBadge } from "@/utils/preorderBadge";
+import { applyPreorderBadge, applyVinylBadge } from "@/utils/preorderBadge";
 import styles from "./ArtistPage.module.css";
 import Image from "next/image";
 import { onAuthStateChanged } from "firebase/auth";
@@ -72,11 +72,12 @@ export default function ArtistPageClient({ slug }) {
         const artistProducts = Object.entries(productsRaw)
           .filter(([, p]) => p.artistGroupId === groupId)
           .map(([id, p]) => {
-            const badges = applyPreorderBadge(
+            const badgesPre = applyPreorderBadge(
               p.badges || {},
               p.releaseDate,
               todayStr
             );
+            const badges = applyVinylBadge(badgesPre, p.mediaType);
 
             return {
               id,

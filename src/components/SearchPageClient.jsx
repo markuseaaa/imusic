@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { ref, get } from "firebase/database";
 import { db } from "@/../firebaseClient";
 import ProductCard from "@/components/ProductCard";
-import { applyPreorderBadge } from "@/utils/preorderBadge";
+import { applyPreorderBadge, applyVinylBadge } from "@/utils/preorderBadge";
 import styles from "./SearchPage.module.css";
 import Image from "next/image";
 
@@ -78,11 +78,12 @@ export default function SearchPageClient() {
             p.artistGroupId && groupsRaw[p.artistGroupId]
               ? groupsRaw[p.artistGroupId]
               : null;
-          const badges = applyPreorderBadge(
+          const badgesPre = applyPreorderBadge(
             p.badges || {},
             p.releaseDate,
             todayStr
           );
+          const badges = applyVinylBadge(badgesPre, p.mediaType);
 
           return {
             id,

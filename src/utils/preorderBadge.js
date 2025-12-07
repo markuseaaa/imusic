@@ -15,3 +15,12 @@ export function applyPreorderBadge(badges = {}, releaseDate, todayStr) {
   const { ["PRE-ORDER"]: _omit, ...rest } = badges || {};
   return rest;
 }
+
+export function applyVinylBadge(badges = {}, mediaType) {
+  const media = (mediaType || "").trim().toLowerCase();
+  if (media === "vinyl") {
+    return { ...(badges || {}), VINYL: true };
+  }
+  const { VINYL: _omit, ...rest } = badges || {};
+  return rest;
+}

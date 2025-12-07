@@ -7,7 +7,7 @@ import Link from "next/link";
 import { ref, get, set, remove } from "firebase/database";
 import { auth, db } from "@/../firebaseClient";
 import ProductCard from "@/components/ProductCard";
-import { applyPreorderBadge } from "@/utils/preorderBadge";
+import { applyPreorderBadge, applyVinylBadge } from "@/utils/preorderBadge";
 import { FaRegHeart, FaHeart, FaStar } from "react-icons/fa6";
 import styles from "./ProductDetail.module.css";
 import { FaChevronLeft, FaChevronRight, FaChevronDown } from "react-icons/fa6";
@@ -128,11 +128,12 @@ export default function ProductDetail({ productId }) {
 
         const allProductsList = Object.entries(productsRaw).map(([id, p]) => {
           const group = groupsMap[p.artistGroupId] || {};
-          const badges = applyPreorderBadge(
+          const badgesPre = applyPreorderBadge(
             p.badges || {},
             p.releaseDate,
             todayStr
           );
+          const badges = applyVinylBadge(badgesPre, p.mediaType);
 
           return {
             id,
@@ -152,6 +153,7 @@ export default function ProductDetail({ productId }) {
             groupType: p.groupType || null,
             baseProductId: p.baseProductId || null,
             releaseDate: p.releaseDate || null,
+            mediaType: p.mediaType || null,
           };
         });
 
@@ -163,11 +165,12 @@ export default function ProductDetail({ productId }) {
         if (!thisProduct) {
           setProduct(null);
         } else {
-          const badges = applyPreorderBadge(
+          const badgesPre = applyPreorderBadge(
             thisProduct.badges || {},
             thisProduct.releaseDate,
             todayStr
           );
+          const badges = applyVinylBadge(badgesPre, thisProduct.mediaType);
           setProduct({ id: productId, ...thisProduct, badges });
           setCurrentImageIndex(0);
           setActiveVersionIndex(0);
