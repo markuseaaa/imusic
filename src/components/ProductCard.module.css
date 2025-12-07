@@ -146,6 +146,16 @@
   overflow: hidden; /* sikrer at de ikke hopper på ny linje */
 }
 
+.versionMeasure {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .versionBadgeMore {
   display: inline-block;
   margin-top: 0px;
@@ -155,8 +165,8 @@
   padding: 4px 8px;
 
   border-radius: 8px;
-  border: 1px solid #999;
-  background: #f3f3f3;
+  border: 1px solid black;
+  background: transparent;
 }
 
 .priceWrapper {

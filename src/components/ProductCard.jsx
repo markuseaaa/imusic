@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import styles from "./ProductCard.module.css";
 import Link from "next/link";
@@ -49,6 +52,68 @@ export default function ProductCard({
     !isRandomVersion && Array.isArray(versions)
       ? versions.filter((v) => v && v.name)
       : [];
+
+  const versionPillsRef = useRef(null);
+  const versionMeasureRef = useRef(null);
+  const [visibleVersionCount, setVisibleVersionCount] = useState(null);
+
+  useEffect(() => {
+    if (isRandomVersion) return;
+
+    const container = versionPillsRef.current;
+    const measure = versionMeasureRef.current;
+    if (!container || !measure) return;
+
+    const GAP_PX = 6; // matches CSS gap
+
+    const calculateVisible = () => {
+      const pills = Array.from(
+        measure.querySelectorAll("[data-version-pill]")
+      );
+      const moreBadge = measure.querySelector("[data-version-more]");
+
+      if (pills.length === 0) {
+        setVisibleVersionCount(0);
+        return;
+      }
+
+      const containerWidth = container.clientWidth;
+      if (containerWidth === 0) return;
+
+      let used = 0;
+      let count = 0;
+
+      pills.forEach((pill) => {
+        const width = pill.getBoundingClientRect().width;
+        if (width === 0) return;
+        const hiddenCount = pills.length - (count + 1);
+        const moreWidth =
+          hiddenCount > 0 && moreBadge
+            ? moreBadge.getBoundingClientRect().width
+            : 0;
+
+        const gapBefore = count === 0 ? 0 : GAP_PX;
+        const moreGap = hiddenCount > 0 ? GAP_PX : 0;
+        const nextUsed = used + gapBefore + width + moreWidth + moreGap;
+        if (nextUsed > containerWidth) return;
+
+        used += gapBefore + width;
+        count += 1;
+      });
+
+      setVisibleVersionCount(count > 0 ? count : 1);
+    };
+
+    // Initial measurement after paint
+    requestAnimationFrame(calculateVisible);
+
+    const resizeObserver = new ResizeObserver(calculateVisible);
+    resizeObserver.observe(container);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [namedVersions, isRandomVersion]);
 
   const handleCardClick = () => {
     if (!id) return;
@@ -128,25 +193,56 @@ export default function ProductCard({
       ) : (
         namedVersions.length > 0 &&
         (() => {
-          const MAX_VERSION_BADGES = 3;
-          const visibleVersions = namedVersions.slice(0, MAX_VERSION_BADGES);
-          const hiddenCount = namedVersions.length - visibleVersions.length;
+          const resolvedVisible =
+            typeof visibleVersionCount === "number"
+              ? visibleVersionCount
+              : namedVersions.length;
+          const visibleVersions = namedVersions.slice(0, resolvedVisible);
+          const hiddenCount = Math.max(
+            namedVersions.length - resolvedVisible,
+            0
+          );
 
           return (
-            <div className={styles.versionPills}>
-              {visibleVersions.map((v, index) => (
-                <span
-                  key={v.code || v.name || index}
-                  className={styles.versionBadge}
-                >
-                  {v.name}
-                </span>
-              ))}
+            <>
+              <div className={styles.versionPills} ref={versionPillsRef}>
+                {visibleVersions.map((v, index) => (
+                  <span
+                    key={v.code || v.name || index}
+                    className={styles.versionBadge}
+                  >
+                    {v.name}
+                  </span>
+                ))}
 
-              {hiddenCount > 0 && (
-                <span className={styles.versionBadgeMore}>+{hiddenCount}</span>
-              )}
-            </div>
+                {hiddenCount > 0 && (
+                  <span className={styles.versionBadgeMore}>+{hiddenCount}</span>
+                )}
+              </div>
+
+              {/* Hidden measure row to calculate how many fit in one line */}
+              <div
+                className={styles.versionMeasure}
+                aria-hidden
+                ref={versionMeasureRef}
+              >
+                <span
+                  className={styles.versionBadgeMore}
+                  data-version-more
+                >
+                  +99
+                </span>
+                {namedVersions.map((v, index) => (
+                  <span
+                    key={v.code || v.name || index}
+                    className={styles.versionBadge}
+                    data-version-pill
+                  >
+                    {v.name}
+                  </span>
+                ))}
+              </div>
+            </>
           );
         })()
       )}

@@ -54,7 +54,7 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  background: #d1d5db; /* neutral grå */
+  background: white;
   opacity: 0.9;
   transition: width 0.2s ease, background 0.2s ease, opacity 0.2s ease;
 }
