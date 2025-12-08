@@ -323,19 +323,19 @@ export default function ProductDetail({ productId }) {
   }, [product, allProducts]);
 
   // ---------- HANDLERS ----------
-  const handlePrevImage = () => {
+  const handlePrevImage = useCallback(() => {
     if (galleryImages.length === 0) return;
     setCurrentImageIndex((prev) =>
       prev === 0 ? galleryImages.length - 1 : prev - 1
     );
-  };
+  }, [galleryImages.length]);
 
-  const handleNextImage = () => {
+  const handleNextImage = useCallback(() => {
     if (galleryImages.length === 0) return;
     setCurrentImageIndex((prev) =>
       prev === galleryImages.length - 1 ? 0 : prev + 1
     );
-  };
+  }, [galleryImages.length]);
 
   const handleGalleryKeyDown = useCallback(
     (e) => {
@@ -348,7 +348,7 @@ export default function ProductDetail({ productId }) {
         handleNextImage();
       }
     },
-    [galleryImages.length]
+    [galleryImages.length, handleNextImage, handlePrevImage]
   );
 
   const handleQuantityChange = (delta) => {
