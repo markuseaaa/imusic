@@ -337,6 +337,20 @@ export default function ProductDetail({ productId }) {
     );
   };
 
+  const handleGalleryKeyDown = useCallback(
+    (e) => {
+      if (galleryImages.length < 2) return;
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        handlePrevImage();
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        handleNextImage();
+      }
+    },
+    [galleryImages.length]
+  );
+
   const handleQuantityChange = (delta) => {
     setQuantity((prev) => {
       const next = prev + delta;
@@ -516,7 +530,13 @@ export default function ProductDetail({ productId }) {
       <div className={styles.detailContent}>
         {/* VENSTRE: billede + thumbnails */}
         <section className={styles.left}>
-          <div className={styles.imageMainWrapper}>
+          <div
+            className={styles.imageMainWrapper}
+            tabIndex={0}
+            role="group"
+            aria-label="Produktbilleder"
+            onKeyDown={handleGalleryKeyDown}
+          >
             {activeImage && (
               <Image
                 src={activeImage}
@@ -590,6 +610,7 @@ export default function ProductDetail({ productId }) {
                   type="button"
                   className={`${styles.navArrow} ${styles.navArrowLeft}`}
                   onClick={handlePrevImage}
+                  aria-label="Forrige billede"
                 >
                   <FaChevronLeft className={styles.arrowIcon} />
                 </button>
@@ -598,6 +619,7 @@ export default function ProductDetail({ productId }) {
                   type="button"
                   className={`${styles.navArrow} ${styles.navArrowRight}`}
                   onClick={handleNextImage}
+                  aria-label="Næste billede"
                 >
                   <FaChevronRight className={styles.arrowIcon} />
                 </button>
@@ -713,6 +735,7 @@ export default function ProductDetail({ productId }) {
                       ? styles.versionBadgeActive
                       : ""
                   }`}
+                  aria-label={`Vælg version ${v.name}`}
                   onClick={() => selectVersion(index, v)}
                 >
                   {v.name}
@@ -755,6 +778,7 @@ export default function ProductDetail({ productId }) {
                 type="button"
                 onClick={() => handleQuantityChange(-1)}
                 className={styles.qtyButton}
+                aria-label="Reducer antal"
               >
                 −
               </button>
@@ -763,6 +787,7 @@ export default function ProductDetail({ productId }) {
                 type="button"
                 onClick={() => handleQuantityChange(1)}
                 className={styles.qtyButton}
+                aria-label="Øg antal"
               >
                 +
               </button>
@@ -816,6 +841,7 @@ export default function ProductDetail({ productId }) {
                               ? styles.versionTabActive
                               : ""
                           }`}
+                          aria-label={`Vis detaljer for ${v.name}`}
                           onClick={() => selectVersion(index, v)}
                         >
                           {v.name}

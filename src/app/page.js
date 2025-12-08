@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -85,10 +85,30 @@ function slugifyCategory(title) {
     .replace(/^-+|-+$/g, "");
 }
 
+// Hjælp: flyt fokus horisontalt med venstre/højre piletast
+function handleHorizontalArrowNavigation(e, containerRef) {
+  if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+  const dir = e.key === "ArrowRight" ? 1 : -1;
+  const container = containerRef.current;
+  if (!container) return;
+  const focusables = Array.from(
+    container.querySelectorAll(
+      'a,button,[tabindex]:not([tabindex="-1"]),input,select,textarea'
+    )
+  ).filter((el) => !el.hasAttribute("disabled"));
+  const currentIndex = focusables.indexOf(document.activeElement);
+  if (currentIndex === -1 || focusables.length === 0) return;
+  e.preventDefault();
+  const nextIndex =
+    (currentIndex + dir + focusables.length) % focusables.length;
+  focusables[nextIndex].focus();
+}
+
 // -------------------- CATEGORY-KOMPONENT --------------------
 
 function Category({ title, items }) {
   const router = useRouter();
+  const rowRef = useRef(null);
 
   if (!items || items.length === 0) return null;
 
@@ -113,7 +133,11 @@ function Category({ title, items }) {
           </div>
         </Link>
 
-        <div className={styles.productsRow}>
+        <div
+          className={styles.productsRow}
+          ref={rowRef}
+          onKeyDown={(e) => handleHorizontalArrowNavigation(e, rowRef)}
+        >
           {items.map((p) => (
             <ProductCard
               key={p.id}
@@ -138,6 +162,7 @@ function Category({ title, items }) {
             type="button"
             className={styles.seeAllCard}
             onClick={handleSeeAll}
+            aria-label={`Se alle produkter i ${title}`}
           >
             <span className={styles.seeAllText}>Se alle</span>
           </button>
@@ -154,11 +179,20 @@ export default function HomePage() {
   const [products, setProducts] = useState([]);
   const [groups, setGroups] = useState({});
   const router = useRouter();
+  const groupsRowRef = useRef(null);
 
   const [touchStartX, setTouchStartX] = useState(null);
   const [touchDeltaX, setTouchDeltaX] = useState(0);
 
   const SWIPE_THRESHOLD = 50; // px – hvor langt man skal swipe før slide skifter
+
+  const handleHeroKeyDown = (e) => {
+    if (e.key === "ArrowRight") {
+      setCurrentIndex((prev) => (prev + 1) % slides.length);
+    } else if (e.key === "ArrowLeft") {
+      setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
+    }
+  };
 
   const handleTouchStart = (e) => {
     if (e.touches.length !== 1) return;
@@ -350,6 +384,10 @@ export default function HomePage() {
       <section className={styles.hero}>
         <div
           className={styles.heroWrapper}
+          role="region"
+          aria-label="Udvalgte produkter slider"
+          tabIndex={0}
+          onKeyDown={handleHeroKeyDown}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
@@ -410,7 +448,11 @@ export default function HomePage() {
 
       {/* K-POP GRUPPER */}
       <section className={styles.groupsOuter}>
-        <div className={styles.groupsRow}>
+        <div
+          className={styles.groupsRow}
+          ref={groupsRowRef}
+          onKeyDown={(e) => handleHorizontalArrowNavigation(e, groupsRowRef)}
+        >
           {FEATURED_GROUPS.map((name) => {
             const slug = slugifyArtist(name);
 

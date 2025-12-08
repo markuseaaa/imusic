@@ -86,6 +86,7 @@ export default function Navbar() {
           <button
             className={styles.burgerButton}
             onClick={() => setMenuOpen((prev) => !prev)}
+            aria-label={menuOpen ? "Luk menu" : "Åbn menu"}
           >
             <Image src="/icons/burger.svg" alt="Menu" width={26} height={26} />
           </button>
@@ -94,6 +95,7 @@ export default function Navbar() {
           <button
             className={`${styles.iconButton} ${styles.searchMobile}`}
             onClick={() => setSearchOpen((prev) => !prev)}
+            aria-label={searchOpen ? "Luk søgning" : "Åbn søgning"}
           >
             <Image src="/icons/search.svg" alt="Søg" width={22} height={22} />
           </button>
@@ -128,12 +130,16 @@ export default function Navbar() {
           <button
             className={`${styles.iconButton} ${styles.searchDesktop}`}
             onClick={() => setSearchOpen((prev) => !prev)}
+            aria-label={searchOpen ? "Luk søgning" : "Åbn søgning"}
           >
             <Image src="/icons/search.svg" alt="Søg" width={22} height={22} />
           </button>
 
           {/* CURRENCY (skjules på mobil) */}
-          <button className={`${styles.iconButton} ${styles.currencyIcon}`}>
+          <button
+            className={`${styles.iconButton} ${styles.currencyIcon}`}
+            aria-label="Vælg valuta"
+          >
             <Image
               src="/icons/currency.svg"
               alt="Valuta"
@@ -152,6 +158,7 @@ export default function Navbar() {
                 router.push("/konto");
               }
             }}
+            aria-label={user ? "Gå til profil" : "Log ind eller opret konto"}
           >
             <Image
               src="/icons/profile.svg"
@@ -165,6 +172,7 @@ export default function Navbar() {
           <button
             className={`${styles.iconButton} ${styles.cartIconButton}`}
             onClick={() => setCartOpen(true)}
+            aria-label="Åbn kurv"
           >
             <div className={styles.basketWrapper}>
               <Image
@@ -227,6 +235,7 @@ export default function Navbar() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
+                aria-label="Søg efter produkter"
               />
               <Image
                 src="/icons/search.svg"
@@ -241,7 +250,10 @@ export default function Navbar() {
         </div>
       )}
       {cartOpen && (
-        <div className={styles.cartOverlay} onClick={() => setCartOpen(false)}>
+        <div
+          className={styles.cartOverlay}
+          onClick={() => setCartOpen(false)}
+        >
           <div
             className={styles.cartModal}
             onClick={(e) => e.stopPropagation()}
@@ -292,6 +304,7 @@ export default function Navbar() {
                         type="button"
                         className={styles.removeItemButton}
                         onClick={() => removeItem(item.id)}
+                        aria-label={`Fjern ${item.title} fra kurven`}
                       >
                         ✕
                       </button>

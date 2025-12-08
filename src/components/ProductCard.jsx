@@ -134,6 +134,7 @@ export default function ProductCard({
       onClick={handleCardClick}
       role="button"
       tabIndex={0}
+      aria-label={artist ? `${title} af ${artist}` : title}
       onKeyDown={handleKeyDown}
     >
       {/* Billede + PRE-ORDER overlay */}
