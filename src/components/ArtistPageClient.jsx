@@ -17,7 +17,6 @@ export default function ArtistPageClient({ slug }) {
   const [isLoading, setIsLoading] = useState(true);
   const [visibleCount, setVisibleCount] = useState(16);
 
-  // Filters
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
   const [memberFilter, setMemberFilter] = useState("");
@@ -52,7 +51,6 @@ export default function ArtistPageClient({ slug }) {
         const productsRaw = productsSnap.exists() ? productsSnap.val() : {};
         const membersRaw = membersSnap.exists() ? membersSnap.val() : {};
 
-        // Find artist group via slug
         const groupEntry = Object.entries(groupsRaw).find(
           ([, g]) => g.slug === slug
         );
@@ -174,7 +172,6 @@ export default function ArtistPageClient({ slug }) {
       );
     }
 
-    // TYPE filter
     if (typeFilter === "album") {
       list = list.filter((p) => p.mainType === "album");
     } else if (typeFilter === "merch") {
@@ -185,14 +182,12 @@ export default function ArtistPageClient({ slug }) {
       );
     }
 
-    // MEMBER filter (virker først rigtigt når produkter har members-list)
     if (memberFilter) {
       list = list.filter((p) =>
         Array.isArray(p.members) ? p.members.includes(memberFilter) : false
       );
     }
 
-    // GENERAL filter (sortering + ekstra betingelser)
     const getEffectivePrice = (p) =>
       p.onSale && typeof p.salePrice === "number" ? p.salePrice : p.price;
 

@@ -55,14 +55,12 @@ export default function AccountPage() {
     setLoadingSignup(true);
 
     try {
-      // 1) Opret bruger i Firebase Auth
       const cred = await createUserWithEmailAndPassword(
         auth,
         email.trim(),
         password
       );
 
-      // 2) Lav en users/{uid}-node i Realtime Database
       await set(ref(db, `users/${cred.user.uid}`), {
         profile: {
           email: cred.user.email,

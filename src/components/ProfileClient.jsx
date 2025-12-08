@@ -32,7 +32,6 @@ export default function ProfilePage() {
 
   const [activeTab, setActiveTab] = useState("orders"); // "orders" | "wishlist" | "artists" | "profile"
 
-  // Profil-form
   const [fullName, setFullName] = useState("");
   const [address, setAddress] = useState("");
   const [postalCode, setPostalCode] = useState("");
@@ -123,7 +122,6 @@ export default function ProfilePage() {
           };
         });
 
-        // Sorter: nyeste først
         parsed.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
 
         if (!cancelled) {
@@ -312,7 +310,6 @@ export default function ProfilePage() {
     if (!confirmDelete) return;
 
     try {
-      // slet evt. brugerdata i db
       await remove(ref(db, `users/${user.uid}`));
     } catch (err) {
       console.error("Kunne ikke slette brugerdata:", err);
@@ -366,7 +363,7 @@ export default function ProfilePage() {
   return (
     <main className={styles.page}>
       <div className={styles.inner}>
-        {/* VENSTRE SIDE – navigation */}
+        {}
         <aside className={styles.sidebar}>
           <h1 className={styles.greeting}>Din profil</h1>
 
@@ -433,7 +430,7 @@ export default function ProfilePage() {
           </div>
         </aside>
 
-        {/* HØJRE SIDE – indhold */}
+        {}
         <section className={styles.content}>
           {activeTab === "orders" && <OrdersSection orders={orders} />}
 

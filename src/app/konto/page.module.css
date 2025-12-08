@@ -119,24 +119,24 @@
 ------------------------------ */
 @media (max-width: 768px) {
   .inner {
-    margin-top: 40px; /* mindre top distance */
+    margin-top: 40px; 
     padding: 0 20px 60px;
     max-width: 100%;
   }
 
   .title {
-    font-size: 30px; /* mindre titel */
+    font-size: 30px; 
     margin-bottom: 6px;
   }
 
   .subtitle {
-    font-size: 14px; /* mindre undertitel */
+    font-size: 14px; 
     margin-bottom: 28px;
     max-width: 100%;
   }
 
   .form {
-    gap: 12px; /* tættere afstand */
+    gap: 12px; 
   }
 
   .label {
@@ -145,7 +145,7 @@
   }
 
   .input {
-    height: 48px; /* kortere input */
+    height: 48px; 
     font-size: 14px;
     padding: 0 14px;
     border-radius: 10px;
@@ -166,7 +166,7 @@
 
   .primaryButton,
   .secondaryButton {
-    height: 48px; /* mindre knapper */
+    height: 48px; 
     font-size: 15px;
     border-radius: 12px;
   }

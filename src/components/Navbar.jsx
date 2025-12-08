@@ -42,7 +42,6 @@ export default function Navbar() {
   const handleCheckout = async () => {
     if (items.length === 0) return;
 
-    // Ikke logget ind → send til konto
     if (!user) {
       setCartOpen(false);
       router.push("/konto");
@@ -82,7 +81,7 @@ export default function Navbar() {
       <div className={styles.inner}>
         {/* LEFT — BURGER + MOBILE SEARCH */}
         <div className={styles.leftMobile}>
-          {/* BURGER (mobil) */}
+          {}
           <button
             className={styles.burgerButton}
             onClick={() => setMenuOpen((prev) => !prev)}
@@ -135,7 +134,7 @@ export default function Navbar() {
             <Image src="/icons/search.svg" alt="Søg" width={22} height={22} />
           </button>
 
-          {/* CURRENCY (skjules på mobil) */}
+          {}
           <button
             className={`${styles.iconButton} ${styles.currencyIcon}`}
             aria-label="Vælg valuta"

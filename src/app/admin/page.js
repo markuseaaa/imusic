@@ -203,7 +203,6 @@ export default function AdminPage() {
 
       let versionsArray = null;
 
-      // Album + clothes + andet merch bruger det almindelige versions-system
       if (
         (isAlbumLocal || isClothesLocal || isOtherMerchLocal) &&
         versionTotal.trim() !== ""
@@ -224,7 +223,6 @@ export default function AdminPage() {
           }));
         }
       }
-      // Lightstick har én enkelt "version" med navn/billede/detaljer
       else if (isLightstickLocal) {
         versionsArray = [
           {
@@ -298,7 +296,6 @@ export default function AdminPage() {
         await update(ref(db), rootUpdates);
       }
 
-      // reset
       setProductTitle("");
       setBaseProductId("");
       setPrice("219.95");
@@ -564,7 +561,7 @@ export default function AdminPage() {
             </label>
           )}
 
-          {/* Lightstick: enkelt version med navn/billede/detaljer */}
+          {}
           {mainType === "merch" && merchSubType === "lightstick" && (
             <div className={styles.versionsMeta}>
               <div className={styles.versionMetaRow}>

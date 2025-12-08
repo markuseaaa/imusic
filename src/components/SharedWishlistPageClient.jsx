@@ -11,7 +11,6 @@ import styles from "./SharedWishlistPage.module.css";
 export default function SharedWishlistPageClient({ userId }) {
   const pathname = usePathname();
 
-  // Fallback: hvis prop mangler, tag sidste del af URL'en
   const effectiveUserId = userId || pathname.split("/").filter(Boolean).pop();
 
   const [ownerName, setOwnerName] = useState("");

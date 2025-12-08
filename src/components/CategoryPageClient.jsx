@@ -25,7 +25,6 @@ function shuffleArray(array) {
   return arr;
 }
 
-// Bruges som fallback hvis vi ikke finder slug på gruppen
 function slugifyName(name) {
   if (!name) return "";
   return name
@@ -55,7 +54,6 @@ export default function CategoryPageClient({ slug }) {
 
   const categoryTitle = CATEGORY_TITLES[slug] || "Kategori";
 
-  // Hent produkter én gang pr. slug
   useEffect(() => {
     if (!slug) return;
 

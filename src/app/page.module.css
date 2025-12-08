@@ -18,20 +18,20 @@
   overflow: hidden;
 }
 
-/* Track der glider vandret */
+
 .heroTrack {
   display: flex;
   height: 100%;
   transition: transform 0.6s ease-in-out;
 }
 
-/* Hver slide fylder hele bredden */
+
 .heroSlide {
   position: relative;
   flex: 0 0 100%;
 }
 
-/* Billede fylder hele sliden */
+
 .heroImage {
   object-fit: cover;
 }
@@ -46,7 +46,7 @@
   gap: 10px;
 }
 
-/* Inaktiv dot: grå */
+
 .dot {
   width: 10px;
   height: 10px;
@@ -59,33 +59,44 @@
   transition: width 0.2s ease, background 0.2s ease, opacity 0.2s ease;
 }
 
-/* Aktiv dot: gradient FCA738 → FF74DF og lidt længere */
+
 .dotActive {
   width: 22px;
   background: linear-gradient(90deg, #fca738, #ff74df);
   opacity: 1;
 }
 
-/* Ydre sektion – fuld bredde, centrer indholdet */
+
 .groupsOuter {
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
-/* Rækken – samme max-width + padding som resten af siden */
+
 .groupsRow {
   width: 100%;
-  max-width: 1400px; /* sæt til samme som dit layout/nav bruger */
-  padding: 20px 24px; /* samme side-margin som navbar/indhold */
+  max-width: var(--layout-max-width); 
+  padding: 20px 24px; 
   margin-top: 10px;
 
   display: flex;
-  justify-content: space-between; /* SPRED kortene ud */
+  justify-content: space-between; 
   gap: 24px;
 }
 
-/* Kortene som før */
+.groupsRow,
+.productsRow {
+  user-select: none;
+  cursor: grab;
+}
+
+.groupsRow[data-dragging="true"],
+.productsRow[data-dragging="true"] {
+  cursor: grabbing;
+}
+
+
 .groupCard {
   display: flex;
   flex-direction: column;
@@ -124,7 +135,7 @@
 
 .productsInner {
   width: 100%;
-  max-width: 1400px; /* match din navbar-layout bredde */
+  max-width: var(--layout-max-width); 
   padding: 0 24px 40px;
 }
 
@@ -145,7 +156,7 @@
   transform: translateY(2px);
 }
 
-/* Selve carousel-rækken */
+
 
 .productsRow {
   display: flex;
@@ -160,7 +171,7 @@
   display: none;
 }
 
-/* "Se alle"-kortet til sidst */
+
 
 .seeAllCard {
   flex-shrink: 0;
@@ -185,7 +196,7 @@
 
 .titleWrapper {
   position: relative;
-  display: inline-block; /* match bredden af teksten */
+  display: inline-block; 
 }
 
 .titleWrapper::after {
@@ -198,7 +209,7 @@
   bottom: 15px;
 }
 
-/* Default: desktop viser desktop-billede */
+
 .heroImageDesktop {
   display: block;
 }
@@ -216,7 +227,7 @@
   background: none;
   cursor: pointer;
   display: block;
-  position: relative; /* så fill-images har en relativ parent */
+  position: relative; 
 }
 
 /* -----------------------------
@@ -233,8 +244,8 @@
 
   .heroWrapper {
     width: 100%;
-    height: 155vw; /* ← vigtig linje */
-    aspect-ratio: unset; /* fjern den gamle ratio */
+    height: 155vw; 
+    aspect-ratio: unset; 
   }
 
   .heroSlide {
@@ -259,7 +270,7 @@
     width: 18px;
   }
 
-  /* GRUPPER – gør dem til et horisontalt scrollbart row */
+  
   .groupsRow {
     padding: 12px 16px;
     margin-top: 0;
@@ -288,7 +299,7 @@
     margin-top: 6px;
   }
 
-  /* POPULÆRT – mindre spacing og tekst */
+  
   .productsOuter {
     margin-top: -10px;
   }

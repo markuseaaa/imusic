@@ -7,7 +7,7 @@
 
 .inner {
   width: 100%;
-  max-width: 1400px;
+  max-width: var(--layout-max-width);
   padding: 40px 24px 80px;
   display: flex;
   gap: 60px;
@@ -135,7 +135,7 @@
 .orderItemInfo {
   display: flex;
   flex-direction: column;
-  gap: 0px; /* vi styrer spacing med margins på de enkelte linjer */
+  gap: 0px; 
   font-size: 15px;
   margin-top: -15px;
 }
@@ -153,7 +153,7 @@
 
 .orderItemVersion {
   font-size: 15px;
-  margin-bottom: -4px; /* lille luft ned til 'Antal' */
+  margin-bottom: -4px; 
 }
 
 .orderItemQuantity {
@@ -197,13 +197,13 @@
   position: relative;
 }
 
-/* Hjertet ovenpå billedet */
+
 .wishlistHeartButton {
   position: absolute;
   top: 10px;
   right: 85px;
 
-  background: none; /* ingen baggrund */
+  background: none; 
   border: none;
   padding: 0;
   cursor: pointer;
@@ -216,19 +216,19 @@
 
 .wishlistHeartIcon {
   font-size: 40px;
-  color: #ff86b4; /* din pink gradient farve */
+  color: #ff86b4; 
   position: relative;
 }
 
-/* Minus ikon ovenpå hjertet */
+
 .wishlistHeartMinus {
   position: absolute;
-  top: 6px; /* justér hvis nødvendigt */
+  top: 6px; 
   right: 13px;
   font-size: 20px;
   font-weight: 900;
   color: white;
-  pointer-events: none; /* klik går stadig til selve knappen */
+  pointer-events: none; 
 }
 
 .wishlistHeartButton:hover .wishlistHeartIcon {
@@ -311,7 +311,7 @@
   position: relative;
 }
 
-/* knap med stjerne */
+
 .artistFavButton {
   position: relative;
   margin-left: 8px;
@@ -324,14 +324,14 @@
   justify-content: center;
 }
 
-/* selve stjernen */
+
 .artistStarIcon {
   font-size: 25px;
-  color: #ffd94a; /* gul stjerne */
+  color: #ffd94a; 
   position: relative;
 }
 
-/* minus ovenpå stjernen */
+
 .artistStarMinus {
   position: absolute;
   top: 4px;
@@ -339,17 +339,17 @@
   font-size: 12px;
   font-weight: 900;
   color: #ffffff;
-  pointer-events: none; /* klik går til knappen, ikke span */
+  pointer-events: none; 
 }
 
 .artistFavButton:hover .artistStarIcon {
   transform: scale(1.06);
 }
 
-/* PROFILE FORM WRAPPER – placeret mod højre */
+
 .profileForm {
   max-width: 600px;
-  margin-left: auto; /* <-- gør den højre-justeret */
+  margin-left: auto; 
   width: 100%;
 }
 
@@ -381,7 +381,7 @@
 }
 
 .input:disabled {
-  background: rgba(0, 0, 0, 0.04); /* lille subtil disabled-baggrund */
+  background: rgba(0, 0, 0, 0.04); 
 }
 
 /* BESKED */
@@ -405,10 +405,10 @@
   color: white;
 
   width: 100%; /* <-- SAMME BREDDE SOM INPUTS */
-  display: block; /* sikrer at width:100% virker */
+  display: block; 
 }
 
-/* Loading */
+
 
 .loading {
   margin-top: 120px;
@@ -440,7 +440,7 @@
     font-size: 26px;
   }
 
-  /* Horisontal scroll-menu på mobil */
+  
   .menu {
     display: flex;
     flex-direction: row;
@@ -493,7 +493,7 @@
     width: 100%;
   }
 
-  /* Orders mere kompakte på mobil */
+  
   .orderCard {
     padding: 14px 14px 16px;
     border-radius: 14px;
@@ -549,20 +549,20 @@
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* ⭐ ØNSKELISTE: 2 produkter pr. række på mobil */
+  
   .wishlistGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 20px;
     width: 100%;
   }
 
-  /* Hjertet lidt justeret */
+  
   .wishlistHeartButton {
     top: 8px;
     right: 12px;
   }
 
-  /* ⭐ FAVORIT ARTISTER: også 2 pr. række på mobil */
+  
   .artistsGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 20px;
@@ -582,7 +582,7 @@
     right: 6.5px;
   }
 
-  /* Profilform – fuld bredde på mobil */
+  
   .profileForm {
     width: 100%;
     max-width: 100%;

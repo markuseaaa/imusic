@@ -7,12 +7,12 @@
   padding: 0;
 }
 
-/* Indholdet – centreret, max 1400px, samme side-padding som forsiden */
+
 .categoryContent {
   width: 100%;
-  max-width: 1400px;
+  max-width: var(--layout-max-width);
   margin: 0 auto;
-  padding: 32px 24px 64px; /* top / sider / bund */
+  padding: 32px 24px 64px; 
 }
 
 /* ------------------------------
@@ -24,7 +24,7 @@
 
 .titleWrapper {
   position: relative;
-  display: inline-block; /* så linjen følger tekstbredden */
+  display: inline-block; 
 }
 
 .sectionTitle {
@@ -39,7 +39,7 @@
   height: 3px;
   border-radius: 6px;
   background: linear-gradient(90deg, #fca738, #ff74df);
-  bottom: 15px; /* samme som forsiden */
+  bottom: 15px; 
 }
 
 /* ------------------------------
@@ -61,17 +61,17 @@
   gap: 12px;
 }
 
-/* Search wrapper for icon inside input */
+
 .searchWrapper {
   position: relative;
   width: 100%;
 }
 
-/* Input med plads til ikon */
+
 .searchInput {
   width: 100%;
   padding: 15px 14px;
-  padding-right: 42px; /* gør plads til ikon */
+  padding-right: 42px; 
   border-radius: 10px;
   border: 1px solid black;
   background: transparent;
@@ -79,14 +79,14 @@
   font-size: 14px;
 }
 
-/* Ikonet placeret i højre side */
+
 .searchIcon {
   position: absolute;
   right: 14px;
   top: 50%;
   transform: translateY(-50%);
-  pointer-events: none; /* så klik går til input */
-  filter: brightness(0); /* Gør ikonet helt sort */
+  pointer-events: none; 
+  filter: brightness(0); 
 }
 
 .searchInput::placeholder {
@@ -102,11 +102,11 @@
 /* BASIS-PILL (TYPE / FILTRER) */
 .filterSelect {
   display: inline-block;
-  flex: 0 0 auto; /* må IKKE fylde hele rækken */
-  width: auto; /* følger tekstens bredde */
+  flex: 0 0 auto; 
+  width: auto; 
 
   padding: 10px 18px;
-  padding-right: 36px; /* plads til pilen */
+  padding-right: 36px; 
 
   border-radius: 12px;
   border: 1px solid #111;
@@ -120,12 +120,12 @@
   line-height: 1;
   cursor: pointer;
 
-  /* fjern native styling */
+  
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
 
-  /* sort pil som default */
+  
   background-image: url("data:image/svg+xml;utf8,<svg fill='none' stroke='%23111' stroke-width='2' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path d='M6 9l6 6 6-6'/></svg>");
   background-repeat: no-repeat;
   background-position: right 14px center;
@@ -180,7 +180,7 @@
    PRODUKT GRID
 --------------------------------- */
 
-/* Mobil + tablet: 2 pr. række */
+
 .grid {
   display: grid;
   gap: 1rem;
@@ -188,7 +188,7 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-/* Desktop: 4 kolonner */
+
 @media (min-width: 900px) {
   .grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -279,11 +279,11 @@
 
   /* ---------- Filter pills ---------- */
   .filterSelect {
-    padding: 8px 14px; /* mindre padding */
-    padding-right: 30px; /* mindre plads til pil */
-    font-size: 11px; /* fra 13px → 11px */
+    padding: 8px 14px; 
+    padding-right: 30px; 
+    font-size: 11px; 
     border-radius: 10px;
-    background-size: 12px 12px; /* mindre pil */
+    background-size: 12px 12px; 
     background-position: right 10px center;
   }
 
@@ -294,7 +294,7 @@
   }
 
   .filtersRow {
-    gap: 6px; /* mindre afstand mellem filterknapper */
+    gap: 6px; 
   }
 
   /* ---------- Clear X knap ---------- */
@@ -306,21 +306,21 @@
 
   /* ---------- Titel ---------- */
   .sectionTitle {
-    font-size: 26px; /* lidt mindre */
+    font-size: 26px; 
   }
 
   .titleWrapper::after {
-    bottom: 10px; /* hæv stregen lidt */
+    bottom: 10px; 
   }
 
   /* ---------- Page padding ---------- */
   .categoryContent {
-    padding: 24px 16px 48px; /* lidt mindre sidepadding */
+    padding: 24px 16px 48px; 
   }
 
   .filterSelectActive {
     background-image: none;
     color: black;
-    border-color: #ff86b4; /* lille hint af brand */
+    border-color: #ff86b4; 
   }
 }

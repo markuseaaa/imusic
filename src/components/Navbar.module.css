@@ -7,7 +7,7 @@
 
 .inner {
   height: 64px;
-  max-width: 1400px;
+  max-width: var(--layout-max-width);
   width: 100%;
   margin: 0 auto;
   padding: 0 32px;
@@ -42,7 +42,7 @@
   opacity: 0.85;
 }
 
-/* underline som på K-POP */
+
 .active::after {
   content: "";
   position: absolute;
@@ -80,22 +80,22 @@
 
 .searchInner {
   width: 100%;
-  max-width: 1400px;
+  max-width: var(--layout-max-width);
   margin: 0 auto;
   padding: 0 24px;
 }
 
-/* Wrapper med ikon inde i input */
+
 .searchWrapper {
   position: relative;
   width: 100%;
 }
 
-/* Input med plads til ikon */
+
 .searchInput {
   width: 100%;
   padding: 15px 14px;
-  padding-right: 42px; /* plads til ikon */
+  padding-right: 42px; 
   border-radius: 10px;
   border: 1px solid black;
   background: white;
@@ -107,7 +107,7 @@
   color: rgba(138, 138, 138, 0.5);
 }
 
-/* Ikon i højre side inde i feltet */
+
 .searchIcon {
   position: absolute;
   right: 14px;
@@ -268,7 +268,7 @@
   display: flex;
 }
 
-/* Selve menu-panelet (venstre side) */
+
 .mobileMenu {
   width: 260px;
   height: 100%;
@@ -280,7 +280,7 @@
   /* GRADIENT BAGGRUND */
   background: linear-gradient(180deg, #fca738, #ff74df);
 
-  /* Slide-in animation */
+  
   transform: translateX(0);
   animation: slideIn 0.32s ease forwards;
 
@@ -296,11 +296,11 @@
   }
 }
 
-/* Menu links */
+
 .mobileNav {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* luft mellem links */
+  gap: 20px; 
   margin-top: 12px;
 }
 
@@ -313,7 +313,7 @@
   padding: 4px 0;
 }
 
-/* Default: desktop layout */
+
 .leftMobile {
   display: none;
 }
@@ -330,7 +330,7 @@
    MOBIL LAYOUT
 ------------------------------------- */
 @media (max-width: 768px) {
-  /* Container for burger + mobil search */
+  
   .leftMobile {
     display: flex;
     align-items: center;
@@ -349,22 +349,22 @@
     display: inline-flex;
   }
 
-  /* Skjul desktop search på mobil */
+  
   .searchDesktop {
     display: none;
   }
 
-  /* Skjul currency på mobil */
+  
   .currencyIcon {
     display: none !important;
   }
 
-  /* Skjul nav-links på mobil */
+  
   .nav {
     display: none;
   }
 
-  /* Logo centreret i midten */
+  
   .inner {
     padding: 0 16px;
     height: 58px;
@@ -378,7 +378,7 @@
     transform: translateX(-50%);
   }
 
-  /* Actions (profil + kurv) til højre */
+  
   .actions {
     margin-left: auto;
     display: flex;

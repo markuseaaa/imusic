@@ -9,7 +9,6 @@ import { applyPreorderBadge, applyVinylBadge } from "@/utils/preorderBadge";
 import styles from "./SearchPage.module.css";
 import Image from "next/image";
 
-// Normaliser tekst (små bogstaver, fjern accenter)
 function normalizeText(str) {
   return (str || "")
     .toLowerCase()
@@ -17,7 +16,6 @@ function normalizeText(str) {
     .replace(/[\u0300-\u036f]/g, "");
 }
 
-// Simpel Levenshtein distance
 function levenshtein(a, b) {
   const m = a.length;
   const n = b.length;
@@ -51,12 +49,10 @@ export default function SearchPageClient() {
   const [isLoading, setIsLoading] = useState(true);
   const [visibleCount, setVisibleCount] = useState(16);
 
-  // Filters
   const [search, setSearch] = useState(urlQuery);
   const [typeFilter, setTypeFilter] = useState("");
   const [generalFilter, setGeneralFilter] = useState("");
 
-  // Hent ALLE produkter + grupper (så vi kan vise artist-navn & slug)
   useEffect(() => {
     let isMounted = true;
 
@@ -113,7 +109,6 @@ export default function SearchPageClient() {
           };
         });
 
-        // Standard sortering: nyeste først
         productList.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
 
         if (!isMounted) return;
@@ -147,7 +142,6 @@ export default function SearchPageClient() {
       });
     }
 
-    // TYPE filter
     if (typeFilter === "album") {
       list = list.filter((p) => p.mainType === "album");
     } else if (typeFilter === "merch") {
@@ -158,7 +152,6 @@ export default function SearchPageClient() {
       );
     }
 
-    // GENERAL filter (sortering + betingelser)
     const getEffectivePrice = (p) =>
       p.onSale && typeof p.salePrice === "number" ? p.salePrice : p.price;
 
@@ -203,7 +196,6 @@ export default function SearchPageClient() {
     const qNorm = normalizeText(raw);
     if (!qNorm || products.length === 0) return [];
 
-    // split søgning i ord (ignorer meget korte som "in", "of", etc)
     const tokens = qNorm
       .split(/\s+/)
       .map((t) => t.trim())
@@ -211,7 +203,6 @@ export default function SearchPageClient() {
 
     const hasMultipleTokens = tokens.length >= 2;
 
-    // Saml kandidater (artister + fulde titler + "core" titler)
     const candidateSet = new Set();
 
     products.forEach((p) => {
@@ -224,13 +215,11 @@ export default function SearchPageClient() {
 
         let core = p.title;
 
-        // Tag sidste del efter " - " (ZEROBASEONE - NEVER SAY NEVER -> NEVER SAY NEVER)
         if (core.includes(" - ")) {
           const parts = core.split(" - ");
           core = parts[parts.length - 1];
         }
 
-        // Fjern versioner i parentes
         if (core.includes("(")) {
           core = core.split("(")[0];
         }
@@ -252,13 +241,11 @@ export default function SearchPageClient() {
         let overlapCount = 0;
 
         if (hasMultipleTokens) {
-          // Ved flere ord: kræv ord-overlap (fx "never", "say")
           overlapCount = tokens.filter(
             (tok) => norm.includes(tok) || tok.includes(norm)
           ).length;
           if (overlapCount === 0) return null;
         } else {
-          // Ved ét ord: vi tillader ingen direkte overlap, bruger kun distance
           overlapCount = norm.includes(qNorm) || qNorm.includes(norm) ? 1 : 0;
         }
 
@@ -272,25 +259,20 @@ export default function SearchPageClient() {
     if (scored.length === 0) return [];
 
     scored.sort((a, b) => {
-      // 1: flere ord i overlap
       if (a.overlapCount !== b.overlapCount) {
         return b.overlapCount - a.overlapCount;
       }
-      // 2: laveste distance
       if (a.dist !== b.dist) {
         return a.dist - b.dist;
       }
-      // 3: højeste similarity
       if (a.similarity !== b.similarity) {
         return b.similarity - a.similarity;
       }
-      // 4: kortere forslag først
       return a.original.length - b.original.length;
     });
 
     const top = scored.slice(0, 3);
 
-    // Lidt sikkerhed: hvis bedste hit er MEGET langt væk, så drop forslag
     const best = top[0];
     if (best) {
       const maxDist = hasMultipleTokens
@@ -319,7 +301,7 @@ export default function SearchPageClient() {
           <p className={styles.statusText}>Indlæser produkter…</p>
         ) : (
           <>
-            {/* SØG + FILTRE — altid synlige */}
+            {}
             <section className={styles.filterSection}>
               <div className={styles.searchWrapper}>
                 <input

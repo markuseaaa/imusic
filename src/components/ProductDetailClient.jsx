@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,6 +13,7 @@ import styles from "./ProductDetail.module.css";
 import { FaChevronLeft, FaChevronRight, FaChevronDown } from "react-icons/fa6";
 import { onAuthStateChanged } from "firebase/auth";
 import { useCart } from "./CartContext";
+import { useDragScroll } from "@/utils/useDragScroll";
 
 function slugifyArtist(name) {
   if (!name) return "";
@@ -38,6 +39,9 @@ function shuffleArray(array) {
 function ProductsSection({ title, items }) {
   if (!items || items.length === 0) return null;
 
+  const rowRef = useRef(null);
+  const dragScroll = useDragScroll(rowRef);
+
   return (
     <section className={styles.productsOuter}>
       <div className={styles.productsInner}>
@@ -47,7 +51,7 @@ function ProductsSection({ title, items }) {
           </div>
         </div>
 
-        <div className={styles.productsRow}>
+        <div className={styles.productsRow} ref={rowRef} {...dragScroll}>
           {items.map((p) => (
             <ProductCard
               key={p.id}
@@ -257,7 +261,6 @@ export default function ProductDetail({ productId }) {
     return group.name || product.search?.artistLower || "";
   }, [product, groups]);
 
-  // Alle billeder: cover + gallery + versions[*].image
   const galleryImages = useMemo(() => {
     if (!product) return [];
     const imgs = [];
@@ -278,7 +281,6 @@ export default function ProductDetail({ productId }) {
       });
     }
 
-    // fjern tomme + duplikater
     return [...new Set(imgs.filter(Boolean))];
   }, [product]);
 
@@ -366,7 +368,6 @@ export default function ProductDetail({ productId }) {
 
     const isRandom = !!product.isRandomVersion;
 
-    // Brug activeVersionIndex + namedVersions til at finde valgt version
     const selectedVersion =
       !isRandom && namedVersions.length > 0
         ? namedVersions[Math.min(activeVersionIndex, namedVersions.length - 1)]
@@ -414,7 +415,6 @@ export default function ProductDetail({ productId }) {
     if (!product) return;
 
     if (!currentUser) {
-      // ikke logget ind → send til login/konto
       router.push("/konto");
       return;
     }
@@ -528,7 +528,7 @@ export default function ProductDetail({ productId }) {
   return (
     <div className={styles.page}>
       <div className={styles.detailContent}>
-        {/* VENSTRE: billede + thumbnails */}
+        {}
         <section className={styles.left}>
           <div
             className={styles.imageMainWrapper}
@@ -548,7 +548,7 @@ export default function ProductDetail({ productId }) {
               />
             )}
 
-            {/* BADGES i venstre hjørne */}
+            {}
             {(hasPreorder ||
               product.badges?.ALBUM ||
               product.badges?.MERCHANDISE ||
@@ -603,7 +603,7 @@ export default function ProductDetail({ productId }) {
               </div>
             )}
 
-            {/* Pile med gradient */}
+            {}
             {galleryImages.length > 1 && (
               <>
                 <button
@@ -651,7 +651,7 @@ export default function ProductDetail({ productId }) {
           )}
         </section>
 
-        {/* HØJRE: info */}
+        {}
         <section className={styles.right}>
           <div className={styles.titleRow}>
             <div className={styles.titleBlock}>
@@ -711,19 +711,19 @@ export default function ProductDetail({ productId }) {
           </div>
 
           <div className={styles.versionRow}>
-            {/* RANDOM VER – altid bare label, ikke klikbar */}
+            {}
             {isRandomVersion && (
               <span className={styles.versionBadge}>RANDOM VER.</span>
             )}
 
-            {/* Hvis IKKE random og KUN 1 navngiven version → bare vis den som label */}
+            {}
             {!isRandomVersion && namedVersions.length === 1 && (
               <span className={styles.versionBadge}>
                 {namedVersions[0].name}
               </span>
             )}
 
-            {/* Hvis IKKE random og FLERE versioner → klikbare badges */}
+            {}
             {!isRandomVersion &&
               namedVersions.length > 1 &&
               namedVersions.map((v, index) => (

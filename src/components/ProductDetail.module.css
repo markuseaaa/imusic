@@ -6,23 +6,23 @@
 
 .page button,
 .page a {
-  -webkit-tap-highlight-color: transparent; /* fjerner blå touch-highlight på iOS */
+  -webkit-tap-highlight-color: transparent; 
 }
 
-/* Default tekstfarve på knapper (sort i stedet for blå) */
+
 .page button {
   color: #111;
 }
 
-/* Links kan arve eller også være sort – du vælger */
+
 .page a {
   color: inherit;
 }
 
-/* Centreret indhold – matcher forsiden/kategori */
+
 .detailContent {
   width: 100%;
-  max-width: 1400px;
+  max-width: var(--layout-max-width);
   padding: 32px 24px 64px;
   margin: 0 auto;
   margin-top: 40px;
@@ -62,7 +62,7 @@
   object-fit: cover;
 }
 
-/* Navigationspile m. gradient */
+
 .navArrow {
   position: absolute;
   top: 50%;
@@ -94,7 +94,7 @@
 }
 
 .arrowIcon {
-  font-size: 22px; /* perfekt størrelse til dine 52px knapper */
+  font-size: 22px; 
   color: #fff;
 }
 
@@ -124,7 +124,7 @@
   color: #1b1b1b;
 }
 
-/* Specific badge types – matcher ProductCard */
+
 
 .badgeAlbum {
   background: #fca738;
@@ -174,7 +174,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  max-width: calc((90px * 5) + (12px * 4)); /* maks 5 thumbs pr. række */
+  max-width: calc((90px * 5) + (12px * 4)); 
   padding-bottom: 5px;
 }
 
@@ -254,7 +254,7 @@
   text-decoration: underline;
 }
 
-/* Stjerne-knap */
+
 .artistFavButton {
   position: relative;
   background: none;
@@ -269,15 +269,15 @@
 
 .starIcon {
   font-size: 25px;
-  color: #d0d0d0; /* inaktiv */
+  color: #d0d0d0; 
   transition: transform 0.15s ease;
 }
 
 .starIconFilled {
-  color: #ffd94a; /* gul favorit-stjerne */
+  color: #ffd94a; 
 }
 
-/* Hjerte-knap */
+
 .heartButton {
   background: none;
   border: none;
@@ -435,8 +435,8 @@
   width: 100%;
   padding: 6px 0;
   display: flex;
-  align-items: center; /* NYT — så ikon og tekst står pænt */
-  gap: 10px; /* NYT — luft mellem ikon og tekst */
+  align-items: center; 
+  gap: 10px; 
   cursor: pointer;
 
   font-size: 20px;
@@ -449,7 +449,7 @@
 }
 
 .detailsIconOpen {
-  transform: rotate(180deg); /* drejer nedad-pil til opad */
+  transform: rotate(180deg); 
 }
 
 .detailsContent {
@@ -469,7 +469,7 @@
   color: #444;
 }
 
-/* Version-tabs under Detaljer */
+
 
 .versionDetails {
   margin-top: 16px;
@@ -508,7 +508,7 @@
 .versionTabContent {
   font-size: 15px;
   line-height: 1.45;
-  white-space: pre-line; /* nyt – bevarer \n som linjeskift */
+  white-space: pre-line; 
 }
 
 /* -----------------------------------
@@ -523,8 +523,17 @@
 
 .productsInner {
   width: 100%;
-  max-width: 1400px;
+  max-width: var(--layout-max-width);
   padding: 0 24px 40px;
+}
+
+.productsRow {
+  cursor: grab;
+  user-select: none;
+}
+
+.productsRow[data-dragging="true"] {
+  cursor: grabbing;
 }
 
 .productsHeader {
@@ -539,7 +548,7 @@
   font-weight: 800;
 }
 
-/* Gradient underline – samme som forsiden */
+
 .titleWrapper {
   position: relative;
   display: inline-block;
@@ -555,7 +564,7 @@
   bottom: 15px;
 }
 
-/* Selve rækken */
+
 .productsRow {
   display: flex;
   gap: 70px;
@@ -597,10 +606,10 @@
 
 .mainImage {
   object-fit: cover;
-  cursor: zoom-in; /* nyt */
+  cursor: zoom-in; 
 }
 
-/* Modal overlay */
+
 .imageModalOverlay {
   position: fixed;
   inset: 0;
@@ -639,7 +648,7 @@
     width: 100%;
   }
 
-  /* Hovedbillede fuld bredde, kvadratisk */
+  
   .imageMainWrapper {
     width: 100%;
     max-width: 100%;
@@ -649,15 +658,15 @@
   }
 
   .mainImage {
-    cursor: zoom-in; /* beholder din zoom, men på mobil */
+    cursor: zoom-in; 
   }
 
-  /* Skjul thumbnails på mobil */
+  
   .thumbsRow {
     display: none;
   }
 
-  /* Badges lidt tættere på kanten */
+  
   .badgeRow {
     top: 10px;
     left: 10px;
@@ -669,7 +678,7 @@
     border-radius: 6px;
   }
 
-  /* Pile en anelse mindre på mobil */
+  
   .navArrow {
     width: 44px;
     height: 44px;
@@ -680,7 +689,7 @@
     font-size: 18px;
   }
 
-  /* Titler og kunstner */
+  
   .productTitle {
     font-size: 28px;
   }
@@ -698,7 +707,7 @@
     font-size: 20px;
   }
 
-  /* Version badges */
+  
   .versionRow {
     margin-top: 4px;
   }
@@ -713,14 +722,14 @@
     padding: 3px 8px;
   }
 
-  /* Meta tekst tættere på */
+  
   .metaText {
     margin-top: 16px;
     font-size: 14px;
     line-height: 1.7;
   }
 
-  /* Pris + kurv */
+  
   .priceRow {
     margin-top: 4px;
   }
@@ -768,7 +777,7 @@
     padding: 12px 0;
   }
 
-  /* Detaljer sektion */
+  
   .detailsSection {
     margin-top: 16px;
   }
@@ -823,8 +832,7 @@
     padding-bottom: 10px;
   }
 
-  /* Disse klasser gør ikke skade, selv hvis de ikke bruges her,
-     men matcher din forside-stil */
+  
   .sectionArrow {
     font-size: 28px;
   }

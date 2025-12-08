@@ -3,12 +3,12 @@
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: 6px; /* Stramt layout */
+  gap: 6px; 
   cursor: pointer;
 }
 
 .imageWrapper {
-  position: relative; /* ← nyt */
+  position: relative; 
   width: 100%;
   height: 250px;
   border-radius: 20px;
@@ -40,15 +40,15 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
-/* Badges (container) */
+
 .badges {
   display: flex;
   gap: 6px;
-  margin: 8px 0 0 0; /* kun top-margin */
+  margin: 8px 0 0 0; 
   flex-wrap: wrap;
 }
 
-/* Badge base */
+
 .badge {
   font-size: 13px;
   font-weight: 700;
@@ -57,13 +57,13 @@
   text-transform: uppercase;
 }
 
-/* Default fallback */
+
 .badgeDefault {
   background: #e3e3e3;
   color: #1b1b1b;
 }
 
-/* Farvekodede badges */
+
 .badgeAlbum {
   background: #fca738; /* ALBUM */
   color: #ffffff;
@@ -90,27 +90,27 @@
 }
 
 .badgeVinyl {
-  background: #fe51b9; /* grøn vinyl badge */
+  background: #fe51b9; 
   color: #ffffff;
 }
 
 .badgeDigipack {
-  background: #3029fa; /* Lilla vibe */
+  background: #3029fa; 
   color: #ffffff;
 }
 
 .badgeDigitalEdition {
-  background: #00bbf9; /* Cyan/lys blå */
+  background: #00bbf9; 
   color: #ffffff;
 }
 
-/* Hvis du på et tidspunkt også vil vise PRE-ORDER som et almindeligt badge i rækken */
+
 .badgePreorder {
   background: #ffb347;
   color: #1b1b1b;
 }
 
-/* Titel – 2 linjer + ... */
+
 .title {
   font-size: 25px;
   font-weight: 700;
@@ -121,13 +121,13 @@
   text-overflow: ellipsis;
 }
 
-/* Artist */
+
 .artist {
   font-size: 20px;
   margin: 2px 0 0 0;
 }
 
-/* Version badge (RANDOM VER.) */
+
 .versionBadge {
   display: inline-block;
   margin-top: 0px;
@@ -147,8 +147,8 @@
 .versionPills {
   display: flex;
   flex-wrap: nowrap;
-  gap: 6px; /* lidt gap mellem badges */
-  overflow: hidden; /* sikrer at de ikke hopper på ny linje */
+  gap: 6px; 
+  overflow: hidden; 
 }
 
 .versionMeasure {
@@ -200,21 +200,21 @@
 
 @media (max-width: 768px) {
   .card {
-    width: 165px; /* fra 250 → 210 (mere diskret ændring) */
+    width: 165px; 
     gap: 5px;
   }
 
   .imageWrapper {
-    height: 165px; /* matcher card-størrelsen */
+    height: 165px; 
     border-radius: 18px;
   }
 
   .title {
-    font-size: 18px; /* fra 25 → 20 */
+    font-size: 18px; 
   }
 
   .artist {
-    font-size: 15px; /* fra 20 → 17 */
+    font-size: 15px; 
   }
 
   .versionBadge,
@@ -233,7 +233,7 @@
   .price,
   .salePrice,
   .oldPrice {
-    font-size: 13px; /* lidt mindre men stadig tydelig */
+    font-size: 13px; 
   }
 
   .preorderOverlayBadge {

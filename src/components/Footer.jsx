@@ -20,7 +20,7 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
-        {/* Top links */}
+        {}
         <div className={styles.columns}>
           <div className={styles.column}>
             <h3>Vores firma</h3>
@@ -43,7 +43,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Social icons */}
+        {}
         <div className={styles.socialWrapper}>
           <div className={styles.socialRow}>
             <div className={styles.socialItem}>
@@ -117,12 +117,12 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Copyright */}
+        {}
         <p className={styles.copyright}>
           © {year} iMusic A/S. Sindalsvej 36B, Risskov, Danmark
         </p>
 
-        {/* Back to top button */}
+        {}
         <button
           type="button"
           className={styles.backToTop}

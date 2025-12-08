@@ -7,12 +7,12 @@
   padding: 0;
 }
 
-/* Indholdet – centreret, max 1400px, samme side-padding som forsiden */
+
 .categoryContent {
   width: 100%;
-  max-width: 1400px;
+  max-width: var(--layout-max-width);
   margin: 0 auto;
-  padding: 32px 24px 64px; /* top / sider / bund */
+  padding: 32px 24px 64px; 
 }
 
 /* ------------------------------
@@ -27,7 +27,7 @@
 
 .titleWrapper {
   position: relative;
-  display: inline-block; /* så linjen følger tekstbredden */
+  display: inline-block; 
 }
 
 .sectionTitle {
@@ -42,7 +42,7 @@
   height: 3px;
   border-radius: 6px;
   background: linear-gradient(90deg, #fca738, #ff74df);
-  bottom: 15px; /* samme som forsiden */
+  bottom: 15px; 
 }
 
 .artistFavButton {
@@ -58,12 +58,12 @@
 
 .artistStarIcon {
   font-size: 30px;
-  color: #d0d0d0; /* inaktiv */
+  color: #d0d0d0; 
   transition: transform 0.15s ease;
 }
 
 .artistStarIconFilled {
-  color: #ffd94a; /* gul som på profilen */
+  color: #ffd94a; 
 }
 
 /* ------------------------------
@@ -85,17 +85,17 @@
   gap: 12px;
 }
 
-/* Search wrapper for icon inside input */
+
 .searchWrapper {
   position: relative;
   width: 100%;
 }
 
-/* Input med plads til ikon */
+
 .searchInput {
   width: 100%;
   padding: 15px 14px;
-  padding-right: 42px; /* gør plads til ikon */
+  padding-right: 42px; 
   border-radius: 10px;
   border: 1px solid black;
   background: transparent;
@@ -103,14 +103,14 @@
   font-size: 14px;
 }
 
-/* Ikonet placeret i højre side */
+
 .searchIcon {
   position: absolute;
   right: 14px;
   top: 50%;
   transform: translateY(-50%);
-  pointer-events: none; /* så klik går til input */
-  filter: brightness(0); /* Gør ikonet helt sort */
+  pointer-events: none; 
+  filter: brightness(0); 
 }
 
 .searchInput::placeholder {
@@ -126,11 +126,11 @@
 /* BASIS-PILL (TYPE / ARTIST / FILTRER) */
 .filterSelect {
   display: inline-block;
-  flex: 0 0 auto; /* må IKKE fylde hele rækken */
-  width: auto; /* følger tekstens bredde */
+  flex: 0 0 auto; 
+  width: auto; 
 
   padding: 10px 18px;
-  padding-right: 36px; /* plads til pilen */
+  padding-right: 36px; 
 
   border-radius: 12px;
   border: 1px solid #111;
@@ -144,12 +144,12 @@
   line-height: 1;
   cursor: pointer;
 
-  /* fjern native styling */
+  
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
 
-  /* sort pil som default */
+  
   background-image: url("data:image/svg+xml;utf8,<svg fill='none' stroke='%23111' stroke-width='2' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path d='M6 9l6 6 6-6'/></svg>");
   background-repeat: no-repeat;
   background-position: right 14px center;
@@ -204,7 +204,7 @@
    PRODUKT GRID
 --------------------------------- */
 
-/* Mobil + tablet: 2 pr. række */
+
 .grid {
   display: grid;
   gap: 1rem;
@@ -212,7 +212,7 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-/* Desktop: 4 kolonner */
+
 @media (min-width: 900px) {
   .grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -220,7 +220,7 @@
   }
 }
 
-/* Wrapper rundt om ProductCard – vi rører ikke selve kortets CSS */
+
 .cardWrapper {
   width: 100%;
   display: flex;
@@ -261,36 +261,36 @@
 }
 
 @media (max-width: 768px) {
-  /* Gør alle filter-select knapper lidt mindre */
+  
   .filterSelect {
-    padding: 8px 14px; /* mindre højde + bredde */
-    padding-right: 30px; /* plads til pil */
-    font-size: 11px; /* fra 13px → 11px */
+    padding: 8px 14px; 
+    padding-right: 30px; 
+    font-size: 11px; 
     border-radius: 10px;
-    background-size: 12px 12px; /* mindre drop-down pil */
+    background-size: 12px 12px; 
     background-position: right 10px center;
   }
 
-  /* Når en er aktiv */
+  
   .filterSelectActive {
-    padding: 8px 14px; /* samme som ovenfor */
+    padding: 8px 14px; 
     padding-right: 30px;
     font-size: 11px;
   }
 
-  /* Filter-knap grupper — mindre gap */
+  
   .filtersRow {
     gap: 6px;
   }
 
-  /* X (clear) knappen lidt mindre */
+  
   .clearBtn {
     width: 16px;
     height: 16px;
     font-size: 12px;
   }
 
-  /* Søgefelt inden filter — lidt mindre padding */
+  
   .searchInput {
     padding: 12px 12px;
     padding-right: 36px;

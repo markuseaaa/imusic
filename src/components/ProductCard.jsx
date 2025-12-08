@@ -40,15 +40,12 @@ export default function ProductCard({
 }) {
   const router = useRouter();
 
-  // PRE-ORDER badge overlay på billedet
   const isPreorder = !!badges["PRE-ORDER"];
 
-  // Filtrér badges til rækken under billedet (ikke RANDOM_VER, ikke PRE-ORDER)
   const activeBadges = Object.entries(badges).filter(
     ([key, value]) => value && key !== "RANDOM_VER" && key !== "PRE-ORDER"
   );
 
-  // Hvis det IKKE er random, vis navngivne versioner som piller
   const namedVersions =
     !isRandomVersion && Array.isArray(versions)
       ? versions.filter((v) => v && v.name)
@@ -105,7 +102,6 @@ export default function ProductCard({
       setVisibleVersionCount(count > 0 ? count : 1);
     };
 
-    // Initial measurement after paint
     requestAnimationFrame(calculateVisible);
 
     const resizeObserver = new ResizeObserver(calculateVisible);
@@ -137,7 +133,7 @@ export default function ProductCard({
       aria-label={artist ? `${title} af ${artist}` : title}
       onKeyDown={handleKeyDown}
     >
-      {/* Billede + PRE-ORDER overlay */}
+      {}
       <div className={styles.imageWrapper}>
         {image && (
           <Image
@@ -156,7 +152,7 @@ export default function ProductCard({
         )}
       </div>
 
-      {/* Badges (ALBUM, MERCH, DIGIPACK, DIGITAL, osv.) */}
+      {}
       {activeBadges.length > 0 && (
         <div className={styles.badges}>
           {activeBadges.map(([key]) => {
@@ -173,10 +169,10 @@ export default function ProductCard({
         </div>
       )}
 
-      {/* Titel */}
+      {}
       <h3 className={styles.title}>{title}</h3>
 
-      {/* Artist – navnet er klikbart, men må IKKE trigge produkt-navigation */}
+      {}
       {artist && artistSlug ? (
         <Link
           href={`/artister/${artistSlug}`}
@@ -189,7 +185,7 @@ export default function ProductCard({
         <p className={styles.artist}>{artist}</p>
       ) : null}
 
-      {/* Version-indikator */}
+      {}
       {isRandomVersion ? (
         <span className={styles.versionBadge}>RANDOM VER.</span>
       ) : (
@@ -222,7 +218,7 @@ export default function ProductCard({
                 )}
               </div>
 
-              {/* Hidden measure row to calculate how many fit in one line */}
+              {}
               <div
                 className={styles.versionMeasure}
                 aria-hidden
@@ -249,7 +245,7 @@ export default function ProductCard({
         })()
       )}
 
-      {/* Pris */}
+      {}
       <div className={styles.priceWrapper}>
         {onSale && typeof salePrice === "number" ? (
           <>

@@ -8,6 +8,7 @@ import { ref, get } from "firebase/database";
 import { db } from "@/../firebaseClient";
 import ProductCard from "@/components/ProductCard";
 import { applyPreorderBadge, applyVinylBadge } from "@/utils/preorderBadge";
+import { useDragScroll } from "@/utils/useDragScroll";
 import styles from "./page.module.css";
 
 // -------------------- KONSTANTER --------------------
@@ -73,7 +74,6 @@ function shuffleArray(array) {
   return arr;
 }
 
-// Slugify så titel matcher kategori-slug på kategori-siden
 function slugifyCategory(title) {
   return title
     .toLowerCase()
@@ -85,7 +85,6 @@ function slugifyCategory(title) {
     .replace(/^-+|-+$/g, "");
 }
 
-// Hjælp: flyt fokus horisontalt med venstre/højre piletast
 function handleHorizontalArrowNavigation(e, containerRef) {
   if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
   const dir = e.key === "ArrowRight" ? 1 : -1;
@@ -109,6 +108,7 @@ function handleHorizontalArrowNavigation(e, containerRef) {
 function Category({ title, items }) {
   const router = useRouter();
   const rowRef = useRef(null);
+  const dragScroll = useDragScroll(rowRef);
 
   if (!items || items.length === 0) return null;
 
@@ -122,12 +122,12 @@ function Category({ title, items }) {
   return (
     <section className={styles.productsOuter}>
       <div className={styles.productsInner}>
-        {/* Titel + pil er klikbar via Link */}
+        {}
         <Link href={href} className={styles.productsHeaderLink}>
           <div className={styles.productsHeader}>
             <div className={styles.titleWrapper}>
               <h2 className={styles.sectionTitle}>{title}</h2>
-              {/* underline styres via .titleWrapper::after i CSS */}
+              {}
             </div>
             <span className={styles.sectionArrow}>›</span>
           </div>
@@ -137,6 +137,7 @@ function Category({ title, items }) {
           className={styles.productsRow}
           ref={rowRef}
           onKeyDown={(e) => handleHorizontalArrowNavigation(e, rowRef)}
+          {...dragScroll}
         >
           {items.map((p) => (
             <ProductCard
@@ -157,7 +158,7 @@ function Category({ title, items }) {
             />
           ))}
 
-          {/* "Se alle" – altid til sidst i rækken */}
+          {}
           <button
             type="button"
             className={styles.seeAllCard}
@@ -180,6 +181,7 @@ export default function HomePage() {
   const [groups, setGroups] = useState({});
   const router = useRouter();
   const groupsRowRef = useRef(null);
+  const groupsDragScroll = useDragScroll(groupsRowRef);
 
   const [touchStartX, setTouchStartX] = useState(null);
   const [touchDeltaX, setTouchDeltaX] = useState(0);
@@ -212,10 +214,8 @@ export default function HomePage() {
     if (Math.abs(touchDeltaX) > SWIPE_THRESHOLD) {
       setCurrentIndex((prev) => {
         if (touchDeltaX < 0) {
-          // swipe til venstre → næste slide
           return (prev + 1) % slides.length;
         }
-        // swipe til højre → forrige slide
         return (prev - 1 + slides.length) % slides.length;
       });
     }
@@ -224,7 +224,6 @@ export default function HomePage() {
     setTouchDeltaX(0);
   };
 
-  // HERO auto-slide
   useEffect(() => {
     const timer = setInterval(
       () => setCurrentIndex((prev) => (prev + 1) % slides.length),
@@ -233,7 +232,6 @@ export default function HomePage() {
     return () => clearInterval(timer);
   }, []);
 
-  // Hent produkter + grupper fra Firebase
   useEffect(() => {
     let isMounted = true;
 
@@ -452,6 +450,7 @@ export default function HomePage() {
           className={styles.groupsRow}
           ref={groupsRowRef}
           onKeyDown={(e) => handleHorizontalArrowNavigation(e, groupsRowRef)}
+          {...groupsDragScroll}
         >
           {FEATURED_GROUPS.map((name) => {
             const slug = slugifyArtist(name);
