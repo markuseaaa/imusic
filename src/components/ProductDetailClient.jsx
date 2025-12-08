@@ -37,10 +37,10 @@ function shuffleArray(array) {
 }
 
 function ProductsSection({ title, items }) {
-  if (!items || items.length === 0) return null;
-
   const rowRef = useRef(null);
   const dragScroll = useDragScroll(rowRef);
+
+  if (!items || items.length === 0) return null;
 
   return (
     <section className={styles.productsOuter}>

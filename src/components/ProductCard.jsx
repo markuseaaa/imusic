@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import styles from "./ProductCard.module.css";
 import Link from "next/link";
@@ -25,12 +25,12 @@ const BADGE_STYLES = {
 };
 
 export default function ProductCard({
-  id, // 🔹 NYT: produktets id fra Firebase
+  id,
   image,
   badges = {},
   title,
-  artist, // fx "Zerobaseone"
-  artistSlug, // fx "zerobaseone"
+  artist,
+  artistSlug,
   versions = [],
   isRandomVersion = false,
   price,
@@ -46,10 +46,10 @@ export default function ProductCard({
     ([key, value]) => value && key !== "RANDOM_VER" && key !== "PRE-ORDER"
   );
 
-  const namedVersions =
-    !isRandomVersion && Array.isArray(versions)
-      ? versions.filter((v) => v && v.name)
-      : [];
+  const namedVersions = useMemo(() => {
+    if (isRandomVersion || !Array.isArray(versions)) return [];
+    return versions.filter((v) => v && v.name);
+  }, [isRandomVersion, versions]);
 
   const versionPillsRef = useRef(null);
   const versionMeasureRef = useRef(null);
@@ -62,7 +62,7 @@ export default function ProductCard({
     const measure = versionMeasureRef.current;
     if (!container || !measure) return;
 
-    const GAP_PX = 6; // matches CSS gap
+    const GAP_PX = 6;
 
     const calculateVisible = () => {
       const pills = Array.from(
@@ -133,7 +133,6 @@ export default function ProductCard({
       aria-label={artist ? `${title} af ${artist}` : title}
       onKeyDown={handleKeyDown}
     >
-      {}
       <div className={styles.imageWrapper}>
         {image && (
           <Image
@@ -152,7 +151,6 @@ export default function ProductCard({
         )}
       </div>
 
-      {}
       {activeBadges.length > 0 && (
         <div className={styles.badges}>
           {activeBadges.map(([key]) => {
@@ -169,15 +167,13 @@ export default function ProductCard({
         </div>
       )}
 
-      {}
       <h3 className={styles.title}>{title}</h3>
 
-      {}
       {artist && artistSlug ? (
         <Link
           href={`/artister/${artistSlug}`}
           className={styles.artistLink}
-          onClick={(e) => e.stopPropagation()} // ← vigtigt
+          onClick={(e) => e.stopPropagation()}
         >
           <p className={styles.artist}>{artist}</p>
         </Link>
@@ -185,7 +181,6 @@ export default function ProductCard({
         <p className={styles.artist}>{artist}</p>
       ) : null}
 
-      {}
       {isRandomVersion ? (
         <span className={styles.versionBadge}>RANDOM VER.</span>
       ) : (
@@ -218,7 +213,6 @@ export default function ProductCard({
                 )}
               </div>
 
-              {}
               <div
                 className={styles.versionMeasure}
                 aria-hidden
@@ -245,7 +239,6 @@ export default function ProductCard({
         })()
       )}
 
-      {}
       <div className={styles.priceWrapper}>
         {onSale && typeof salePrice === "number" ? (
           <>
