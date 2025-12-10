@@ -91,6 +91,7 @@ export default function ProductDetail({ productId }) {
   const [activeVersionIndex, setActiveVersionIndex] = useState(0);
   const [isImageOpen, setIsImageOpen] = useState(false);
   const [isArtistFav, setIsArtistFav] = useState(false);
+  const [addFeedback, setAddFeedback] = useState(false);
   const { addItem } = useCart();
 
   const [currentUser, setCurrentUser] = useState(null);
@@ -353,6 +354,12 @@ export default function ProductDetail({ productId }) {
     [galleryImages.length, handleNextImage, handlePrevImage]
   );
 
+  useEffect(() => {
+    if (!addFeedback) return undefined;
+    const timer = setTimeout(() => setAddFeedback(false), 2000);
+    return () => clearTimeout(timer);
+  }, [addFeedback]);
+
   const handleQuantityChange = (delta) => {
     setQuantity((prev) => {
       const next = prev + delta;
@@ -397,6 +404,7 @@ export default function ProductDetail({ productId }) {
       },
       quantity
     );
+    setAddFeedback(true);
   };
 
   const selectVersion = useCallback(
@@ -795,10 +803,12 @@ export default function ProductDetail({ productId }) {
 
             <button
               type="button"
-              className={styles.addToCartButton}
+              className={`${styles.addToCartButton} ${
+                addFeedback ? styles.addToCartButtonSuccess : ""
+              }`}
               onClick={handleAddToCart}
             >
-              Tilføj
+              {addFeedback ? "Tilføjet" : "Tilføj"}
             </button>
           </div>
 

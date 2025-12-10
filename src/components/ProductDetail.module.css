@@ -417,6 +417,12 @@
   background: linear-gradient(90deg, #fca738, #ff74df);
   color: white !important;
   width: 75%;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.addToCartButtonSuccess {
+  background: #16a34a;
+  color: #fff !important;
 }
 
 /* -----------------------------------
